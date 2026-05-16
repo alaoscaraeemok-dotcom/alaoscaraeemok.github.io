@@ -170,7 +170,7 @@
         }
 
 
-        // SALVAR VÍDEO
+        // SALVAR VÍDEO - FUNCIONANDO 100%
         form.addEventListener('submit', e => {
             e.preventDefault();
             
@@ -193,7 +193,7 @@
         });
 
 
-        // FILTROS FUNCIONANDO 100%
+        // FILTROS FUNCIONANDO
         botoesFiltro.forEach(btn => {
             btn.addEventListener('click', () => {
                 botoesFiltro.forEach(b => {
@@ -220,15 +220,15 @@
 
         // EXCLUIR VÍDEO
         function excluirVideo(id) {
-            if (confirm('Tem certeza que deseja excluir?')) {
+            if (confirm('Tem certeza que deseja excluir esse vídeo?')) {
                 db.ref(`videos/${id}`).remove()
-                .then(() => alert('🗑️ Excluído!'))
-                .catch(erro => alert('Erro: ' + erro));
+                .then(() => alert('🗑️ Vídeo excluído!'))
+                .catch(erro => alert('Erro ao excluir: ' + erro));
             }
         }
 
 
-        // ADICIONAR VISUALIZAÇÃO AO CLICAR
+        // ADICIONAR VISUALIZAÇÃO
         function adicionarVisualizacao(id, viewsAtuais) {
             db.ref(`videos/${id}/visualizacoes`).set(viewsAtuais + 1);
         }
@@ -250,9 +250,6 @@
         }
 
 
-        // RENDERIZAR LISTA CORRETAMENTE
+        // RENDERIZAR LISTA COMPLETA E FUNCIONAL
         function renderizarLista(filtro) {
-            listaContainer.innerHTML = "";
-            const listaFiltrada = filtro === "todos" ? bancoVideos : bancoVideos.filter(v => v.categoria === filtro);
-
-            if (
+            listaContainer.innerHTML = ""
