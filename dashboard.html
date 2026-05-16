@@ -7,16 +7,16 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Flores decorativas -->
+    <!-- Elementos decorativos sutis -->
     <div class="bg-flower flower-top-right"></div>
     <div class="bg-flower flower-bottom-left"></div>
     <div class="bg-flower flower-middle-right"></div>
 
     <div class="page-wrapper">
-        <!-- Barra Superior Fixa -->
+        <!-- Barra Superior -->
         <header class="top-bar">
             <div class="top-bar-content">
-                <h2>PAINEL DE GERENCIAMENTO</h2>
+                <h2>PAINEL DE GERENCIAMENTO DE CONTEÚDO</h2>
                 <div class="top-bar-actions">
                     <a href="menu.html" class="btn btn-outline">Menu Principal</a>
                     <a href="index.html" class="btn btn-danger">Sair</a>
@@ -26,52 +26,70 @@
 
         <!-- Conteúdo Principal -->
         <main class="main-content">
-            <!-- Seção: Adicionar Vídeo -->
-            <section class="card-container">
+
+            <!-- SEÇÃO: ADICIONAR VÍDEO - MELHORADA E MAIS BONITA -->
+            <section class="card-container card-formulario">
                 <div class="card-header">
-                    <h3>📤 Adicionar Novo Vídeo</h3>
+                    <h3>ADICIONAR NOVO VÍDEO</h3>
+                    <p class="subtitulo-cabecalho">Preencha os dados abaixo para cadastrar no sistema</p>
                 </div>
                 <div class="card-body">
-                    <form id="novoVideoForm" class="form-grid">
-                        <div class="form-col">
+                    <form id="novoVideoForm" class="form-layout-avancado">
+                        
+                        <!-- Linha 1: Título e Categoria -->
+                        <div class="form-row">
                             <div class="form-group">
                                 <label>Título do Vídeo</label>
-                                <input type="text" id="tituloVid" placeholder="Ex: Como editar vídeos profissionalmente" required>
+                                <input type="text" id="tituloVid" placeholder="Digite o título completo do vídeo" required>
                             </div>
                             <div class="form-group">
                                 <label>Categoria</label>
                                 <select id="categoriaVid" required>
                                     <option value="">Selecione uma categoria</option>
-                                    <option value="tutoriais">📚 Tutoriais e Dicas</option>
-                                    <option value="jogos">🎮 Jogos e Gameplays</option>
-                                    <option value="vlogs">🎥 Vlogs e Diários</option>
-                                    <option value="curiosidades">💡 Curiosidades e Fatos</option>
-                                    <option value="analises">📊 Análises e Avaliações</option>
-                                    <option value="entretenimento">🎭 Entretenimento</option>
+                                    <option value="tutoriais">Tutoriais e Dicas</option>
+                                    <option value="jogos">Jogos e Gameplays</option>
+                                    <option value="vlogs">Vlogs e Diários</option>
+                                    <option value="curiosidades">Curiosidades e Fatos</option>
+                                    <option value="analises">Análises e Avaliações</option>
+                                    <option value="entretenimento">Entretenimento</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="form-col">
-                            <div class="form-group">
-                                <label>Link do YouTube</label>
-                                <input type="url" id="linkVid" placeholder="https://www.youtube.com/watch?v=..." required>
+
+                        <!-- Linha 2: Link do YouTube -->
+                        <div class="form-row">
+                            <div class="form-group full-width">
+                                <label>Link do Vídeo (YouTube)</label>
+                                <input type="url" id="linkVid" placeholder="https://www.youtube.com/watch?v=CODIGO_DO_VIDEO" required>
+                                <small class="texto-ajuda">A capa do vídeo será carregada automaticamente a partir do link</small>
                             </div>
-                            <div class="form-group">
+                        </div>
+
+                        <!-- Linha 3: Descrição -->
+                        <div class="form-row">
+                            <div class="form-group full-width">
                                 <label>Descrição Curta</label>
-                                <textarea id="descricaoVid" rows="3" placeholder="Escreva um pequeno resumo sobre o vídeo..."></textarea>
+                                <textarea id="descricaoVid" rows="4" placeholder="Escreva um resumo objetivo sobre o conteúdo do vídeo..."></textarea>
                             </div>
                         </div>
-                        <div class="form-full">
-                            <button type="submit" class="btn btn-primary btn-lg">Salvar Vídeo</button>
+
+                        <!-- Botão de Salvar -->
+                        <div class="form-botao-centro">
+                            <button type="submit" class="btn btn-primary btn-lg">Cadastrar Vídeo</button>
                         </div>
+
                     </form>
                 </div>
             </section>
 
-            <!-- Seção: Visualizar Vídeos -->
+
+            <!-- SEÇÃO: VISUALIZAR VÍDEOS - COM THUMBNAIL -->
             <section class="card-container">
                 <div class="card-header">
-                    <h3>🎞️ Meus Vídeos Organizados</h3>
+                    <div>
+                        <h3>BIBLIOTECA DE VÍDEOS</h3>
+                        <p class="subtitulo-cabecalho">Todos os vídeos cadastrados organizados por categoria</p>
+                    </div>
                     <div class="filtro-categorias">
                         <button class="btn-filtro active" data-filtro="todos">Todos</button>
                         <button class="btn-filtro" data-filtro="tutoriais">Tutoriais</button>
@@ -81,12 +99,14 @@
                         <button class="btn-filtro" data-filtro="analises">Análises</button>
                     </div>
                 </div>
+
                 <div class="card-body">
-                    <div id="gradeVideos" class="videos-grade">
-                        <div class="vazio-msg">Nenhum vídeo cadastrado ainda. Adicione o seu primeiro vídeo acima!</div>
+                    <div id="gradeVideos" class="videos-grade-com-capa">
+                        <div class="vazio-msg">Nenhum vídeo cadastrado ainda. Adicione o primeiro vídeo no formulário acima!</div>
                     </div>
                 </div>
             </section>
+
         </main>
     </div>
 
@@ -100,23 +120,41 @@
         const botoesFiltro = document.querySelectorAll('.btn-filtro');
         let bancoVideos = JSON.parse(localStorage.getItem('videosCadastrados')) || [];
 
-        // Adicionar vídeo
+
+        // Função para extrair ID do YouTube e pegar a Thumbnail
+        function pegarThumbnailDoLink(link) {
+            let id = '';
+            if (link.includes('youtu.be/')) {
+                id = link.split('youtu.be/')[1].split('?')[0];
+            } else if (link.includes('youtube.com/watch')) {
+                id = new URL(link).searchParams.get('v');
+            }
+            return id ? `https://img.youtube.com/vi/${id}/maxresdefault.jpg` : 'https://via.placeholder.com/480x360/141414/9D4EDD?text=Sem+Capa';
+        }
+
+
+        // Adicionar novo vídeo
         form.addEventListener('submit', e => {
             e.preventDefault();
+            
+            const link = document.getElementById('linkVid').value;
             const novo = {
                 id: Date.now(),
                 titulo: document.getElementById('tituloVid').value,
                 categoria: document.getElementById('categoriaVid').value,
-                link: document.getElementById('linkVid').value,
-                descricao: document.getElementById('descricaoVid').value || "Sem descrição disponível."
+                link: link,
+                descricao: document.getElementById('descricaoVid').value || "Sem descrição disponível.",
+                thumbnail: pegarThumbnailDoLink(link) // Salva a capa automaticamente
             };
+            
             bancoVideos.push(novo);
             salvarDados();
             renderizar("todos");
             form.reset();
         });
 
-        // Filtrar
+
+        // Filtrar por categoria
         botoesFiltro.forEach(btn => {
             btn.addEventListener('click', () => {
                 botoesFiltro.forEach(b => b.classList.remove('active'));
@@ -125,7 +163,8 @@
             });
         });
 
-        // Renderizar tela
+
+        // Renderizar vídeos na tela COM A CAPA
         function renderizar(filtro) {
             grade.innerHTML = "";
             const listaFiltrada = filtro === "todos" ? bancoVideos : bancoVideos.filter(v => v.categoria === filtro);
@@ -137,16 +176,25 @@
 
             listaFiltrada.forEach(vid => {
                 const card = document.createElement('div');
-                card.className = 'video-card-item';
+                card.className = 'video-card-com-capa';
                 card.innerHTML = `
-                    <div class="card-categoria-tag cat-${vid.categoria}">${traduzirCategoria(vid.categoria)}</div>
-                    <h4 class="card-titulo">${vid.titulo}</h4>
-                    <p class="card-desc">${vid.descricao}</p>
-                    <a href="${vid.link}" target="_blank" class="btn btn-primary btn-sm">Assistir no YouTube</a>
+                    <!-- Capa do Vídeo -->
+                    <div class="video-capa">
+                        <img src="${vid.thumbnail}" alt="Capa do vídeo" loading="lazy">
+                        <div class="tag-categoria cat-${vid.categoria}">${traduzirCategoria(vid.categoria)}</div>
+                    </div>
+
+                    <!-- Informações -->
+                    <div class="video-conteudo">
+                        <h4 class="video-titulo">${vid.titulo}</h4>
+                        <p class="video-descricao">${vid.descricao}</p>
+                        <a href="${vid.link}" target="_blank" class="btn btn-primary btn-block">Assistir no YouTube</a>
+                    </div>
                 `;
                 grade.appendChild(card);
             });
         }
+
 
         function traduzirCategoria(cat) {
             const nomes = {
