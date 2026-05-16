@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Site Incrível 🚀</title>
+    <title>Saint-engine • Site Oficial</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <script>
@@ -11,12 +11,14 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#165DFF',
-                        dark: '#1D2129',
-                        light: '#F2F3F5',
+                        primary: '#0066FF',
+                        dark: '#0A0A0F',
+                        darkLight: '#1A1A24',
+                        accent: '#3385FF',
+                        light: '#F0F4FF',
                     },
                     fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
                     },
                 }
             }
@@ -24,97 +26,209 @@
     </script>
     <style type="text/tailwindcss">
         @layer utilities {
-            .content-auto {
-                content-visibility: auto;
-            }
             .text-shadow {
-                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                text-shadow: 0 0 20px rgba(0, 102, 255, 0.4);
             }
-            .card-hover {
-                @apply transition-all duration-300 hover:scale-105 hover:shadow-2xl;
+            .card-glow {
+                box-shadow: 0 8px 32px rgba(0, 102, 255, 0.15);
+            }
+            .scroll-smooth {
+                scroll-behavior: smooth;
             }
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen font-sans">
+<body class="bg-gradient-to-br from-dark via-darkLight to-dark min-h-screen text-light font-sans scroll-smooth">
 
-    <!-- Cabeçalho -->
-    <header class="bg-white/80 backdrop-blur-md shadow-md fixed w-full z-50">
+    <!-- Barra de Navegação Fixa -->
+    <header class="fixed w-full top-0 left-0 z-50 bg-dark/80 backdrop-blur-lg border-b border-primary/20">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <h1 class="text-[#165DFF] text-2xl font-bold text-shadow">MeuSite</h1>
-            <nav>
-                <ul class="flex gap-6">
-                    <li><a href="#" class="text-gray-700 hover:text-[#165DFF] font-medium transition-colors">Início</a></li>
-                    <li><a href="#" class="text-gray-700 hover:text-[#165DFF] font-medium transition-colors">Sobre</a></li>
-                    <li><a href="#" class="text-gray-700 hover:text-[#165DFF] font-medium transition-colors">Projetos</a></li>
-                    <li><a href="#" class="text-gray-700 hover:text-[#165DFF] font-medium transition-colors">Contato</a></li>
-                </ul>
+            <a href="#" class="text-[#0066FF] text-2xl font-bold text-shadow">SAINT-ENGINE</a>
+            <nav class="hidden md:flex gap-8">
+                <a href="#inicio" class="hover:text-primary transition-colors font-medium">Início</a>
+                <a href="#sobre" class="hover:text-primary transition-colors font-medium">Sobre</a>
+                <a href="#servicos" class="hover:text-primary transition-colors font-medium">Serviços</a>
+                <a href="#projetos" class="hover:text-primary transition-colors font-medium">Projetos</a>
+                <a href="#contato" class="hover:text-primary transition-colors font-medium">Contato</a>
             </nav>
+            <button class="md:hidden text-2xl">
+                <i class="fa fa-bars"></i>
+            </button>
         </div>
     </header>
 
     <!-- Seção Principal -->
-    <section class="container mx-auto px-4 pt-32 pb-20">
-        <div class="flex flex-col md:flex-row items-center gap-12">
-            <div class="md:w-1/2 space-y-6">
-                <h2 class="text-[clamp(2.5rem,5vw,4rem)] font-extrabold text-dark leading-tight text-shadow">
-                    Olá, eu sou o <span class="text-[#165DFF]">Santos</span> 🚀
-                </h2>
-                <p class="text-gray-600 text-lg">
-                    Criei esse site do zero para testar meus conhecimentos, e agora ele está aqui, bonito, responsivo e pronto para receber o que eu quiser!
+    <section id="inicio" class="container mx-auto px-4 pt-40 pb-32">
+        <div class="flex flex-col md:flex-row items-center gap-16">
+            <div class="md:w-1/2 space-y-8">
+                <h1 class="text-[clamp(2.8rem,6vw,5rem)] font-extrabold leading-tight">
+                    Transformando <br>
+                    <span class="text-[#0066FF] text-shadow">Ideias em Código</span>
+                </h1>
+                <p class="text-gray-300 text-lg leading-relaxed">
+                    Desenvolvimento de sites, sistemas e soluções digitais com qualidade, performance e design moderno. Tudo feito com a combinação perfeita de tecnologia e criatividade.
                 </p>
-                <div class="flex gap-4 pt-4">
-                    <a href="#" class="bg-[#165DFF] text-white px-8 py-3 rounded-full font-semibold shadow-lg hover:bg-blue-700 transition-all">
+                <div class="flex flex-wrap gap-4 pt-4">
+                    <a href="#projetos" class="bg-primary hover:bg-accent px-10 py-4 rounded-lg font-semibold shadow-lg hover:shadow-primary/30 transition-all transform hover:-translate-y-1">
                         Ver Projetos
                     </a>
-                    <a href="#" class="border-2 border-[#165DFF] text-[#165DFF] px-8 py-3 rounded-full font-semibold hover:bg-blue-50 transition-all">
-                        Fale Comigo
+                    <a href="#contato" class="border-2 border-primary text-primary hover:bg-primary/10 px-10 py-4 rounded-lg font-semibold transition-all">
+                        Entrar em Contato
                     </a>
                 </div>
             </div>
-            <div class="md:w-1/2">
-                <img src="https://picsum.photos/id/3/600/400" alt="Imagem de destaque" class="rounded-2xl shadow-2xl w-full">
+            <div class="md:w-1/2 relative">
+                <div class="w-full h-[400px] rounded-2xl bg-darkLight border border-primary/30 overflow-hidden card-glow">
+                    <div class="w-full h-full bg-gradient-to-tr from-primary/20 to-transparent flex items-center justify-center">
+                        <i class="fa fa-code text-primary text-9xl opacity-60"></i>
+                    </div>
+                </div>
+                <div class="absolute -bottom-6 -right-6 w-24 h-24 bg-primary rounded-full blur-3xl opacity-40"></div>
             </div>
         </div>
     </section>
 
-    <!-- Seção de Cards -->
-    <section class="bg-white/60 py-20">
+    <!-- Seção Sobre -->
+    <section id="sobre" class="bg-darkLight/50 py-24 border-y border-primary/10">
         <div class="container mx-auto px-4">
-            <h3 class="text-3xl font-bold text-center mb-16 text-dark">O Que Eu Posso Fazer?</h3>
+            <h2 class="text-4xl font-bold text-center mb-16">
+                <span class="text-[#0066FF]">//</span> Sobre Mim
+            </h2>
+            <div class="max-w-3xl mx-auto text-center space-y-6">
+                <p class="text-gray-300 text-lg leading-relaxed">
+                    Sou desenvolvedor apaixonado por tecnologia e inovação. Trabalho para criar soluções que não apenas funcionam bem, mas também têm uma aparência incrível e uma experiência de usuário excepcional.
+                </p>
+                <p class="text-gray-300 text-lg leading-relaxed">
+                    Especializado em desenvolvimento web, design de interfaces e publicação de projetos na nuvem, como fizemos aqui com o GitHub Pages. Sempre buscando aprender mais e entregar o melhor resultado possível.
+                </p>
+                <div class="flex justify-center gap-6 pt-4">
+                    <span class="bg-dark px-4 py-2 rounded-full border border-primary/20 text-primary">HTML5</span>
+                    <span class="bg-dark px-4 py-2 rounded-full border border-primary/20 text-primary">CSS3</span>
+                    <span class="bg-dark px-4 py-2 rounded-full border border-primary/20 text-primary">JavaScript</span>
+                    <span class="bg-dark px-4 py-2 rounded-full border border-primary/20 text-primary">GitHub</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Serviços -->
+    <section id="servicos" class="py-24">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-16">
+                <span class="text-[#0066FF]">//</span> Meus Serviços
+            </h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Card 1 -->
-                <div class="bg-white p-8 rounded-2xl shadow-lg card-hover text-center">
-                    <i class="fa fa-code text-[#165DFF] text-5xl mb-4"></i>
-                    <h4 class="text-xl font-bold mb-2">Desenvolvimento</h4>
-                    <p class="text-gray-600">Crio sites e sistemas com código limpo, rápido e bonito.</p>
+                <!-- Serviço 1 -->
+                <div class="bg-darkLight p-8 rounded-xl border border-primary/20 card-glow hover:border-primary/50 transition-all hover:-translate-y-2">
+                    <i class="fa fa-laptop text-primary text-5xl mb-6"></i>
+                    <h3 class="text-2xl font-bold mb-3">Desenvolvimento Web</h3>
+                    <p class="text-gray-400 mb-5">Criação de sites completos, sistemas e aplicações responsivas, rápidas e otimizadas para todos os dispositivos.</p>
+                    <a href="#" class="text-primary hover:underline">Saiba mais →</a>
                 </div>
-                <!-- Card 2 -->
-                <div class="bg-white p-8 rounded-2xl shadow-lg card-hover text-center">
-                    <i class="fa fa-paint-brush text-[#165DFF] text-5xl mb-4"></i>
-                    <h4 class="text-xl font-bold mb-2">Design</h4>
-                    <p class="text-gray-600">Deixo tudo visualmente agradável e fácil de usar.</p>
+                <!-- Serviço 2 -->
+                <div class="bg-darkLight p-8 rounded-xl border border-primary/20 card-glow hover:border-primary/50 transition-all hover:-translate-y-2">
+                    <i class="fa fa-paint-brush text-primary text-5xl mb-6"></i>
+                    <h3 class="text-2xl font-bold mb-3">Design de Interface</h3>
+                    <p class="text-gray-400 mb-5">Layouts modernos, intuitivos e visualmente atraentes, seguindo as melhores práticas de design e usabilidade.</p>
+                    <a href="#" class="text-primary hover:underline">Saiba mais →</a>
                 </div>
-                <!-- Card 3 -->
-                <div class="bg-white p-8 rounded-2xl shadow-lg card-hover text-center">
-                    <i class="fa fa-rocket text-[#165DFF] text-5xl mb-4"></i>
-                    <h4 class="text-xl font-bold mb-2">Publicação</h4>
-                    <p class="text-gray-600">Coloco tudo no ar gratuitamente usando o GitHub Pages.</p>
+                <!-- Serviço 3 -->
+                <div class="bg-darkLight p-8 rounded-xl border border-primary/20 card-glow hover:border-primary/50 transition-all hover:-translate-y-2">
+                    <i class="fa fa-rocket text-primary text-5xl mb-6"></i>
+                    <h3 class="text-2xl font-bold mb-3">Publicação e Hospedagem</h3>
+                    <p class="text-gray-400 mb-5">Deixo seu projeto no ar gratuitamente ou com domínio próprio, usando ferramentas como GitHub Pages e outras plataformas.</p>
+                    <a href="#" class="text-primary hover:underline">Saiba mais →</a>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Projetos -->
+    <section id="projetos" class="bg-darkLight/50 py-24 border-y border-primary/10">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-16">
+                <span class="text-[#0066FF]">//</span> Meus Projetos
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Projeto 1 -->
+                <div class="bg-dark rounded-xl overflow-hidden border border-primary/20 group hover:border-primary transition-all">
+                    <div class="h-48 bg-gradient-to-r from-primary/30 to-accent/20 flex items-center justify-center">
+                        <i class="fa fa-globe text-primary text-6xl opacity-50 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Site Pessoal</h3>
+                        <p class="text-gray-400 text-sm mb-4">Exatamente esse site que criamos juntos, moderno, funcional e hospedado no GitHub.</p>
+                        <a href="#" class="text-sm text-primary hover:underline">Ver projeto</a>
+                    </div>
+                </div>
+                <!-- Projeto 2 -->
+                <div class="bg-dark rounded-xl overflow-hidden border border-primary/20 group hover:border-primary transition-all">
+                    <div class="h-48 bg-gradient-to-r from-primary/30 to-accent/20 flex items-center justify-center">
+                        <i class="fa fa-shopping-cart text-primary text-6xl opacity-50 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Loja Virtual</h3>
+                        <p class="text-gray-400 text-sm mb-4">Estrutura completa de e-commerce, com catálogo, carrinho e sistema de pedidos.</p>
+                        <a href="#" class="text-sm text-primary hover:underline">Ver projeto</a>
+                    </div>
+                </div>
+                <!-- Projeto 3 -->
+                <div class="bg-dark rounded-xl overflow-hidden border border-primary/20 group hover:border-primary transition-all">
+                    <div class="h-48 bg-gradient-to-r from-primary/30 to-accent/20 flex items-center justify-center">
+                        <i class="fa fa-database text-primary text-6xl opacity-50 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Sistema de Gestão</h3>
+                        <p class="text-gray-400 text-sm mb-4">Plataforma para controle de dados, usuários e relatórios, com interface administrativa.</p>
+                        <a href="#" class="text-sm text-primary hover:underline">Ver projeto</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Contato -->
+    <section id="contato" class="py-24">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-16">
+                <span class="text-[#0066FF]">//</span> Contato
+            </h2>
+            <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <h3 class="text-2xl font-semibold">Vamos conversar?</h3>
+                    <p class="text-gray-300">Tem um projeto em mente ou quer saber mais sobre meus serviços? Envie uma mensagem ou fale diretamente por uma das redes abaixo.</p>
+                    <div class="space-y-4 pt-4">
+                        <div class="flex items-center gap-4">
+                            <i class="fa fa-envelope text-primary text-xl"></i>
+                            <span class="text-gray-300">contato@saintengine.dev</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <i class="fa fa-map-marker text-primary text-xl"></i>
+                            <span class="text-gray-300">Brasil, Piauí - Teresina</span>
+                        </div>
+                        <div class="flex gap-5 pt-2">
+                            <a href="#" class="text-gray-400 hover:text-primary text-3xl transition-colors"><i class="fa fa-github"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-primary text-3xl transition-colors"><i class="fa fa-instagram"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-primary text-3xl transition-colors"><i class="fa fa-linkedin"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-primary text-3xl transition-colors"><i class="fa fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <form class="bg-darkLight p-8 rounded-xl border border-primary/20 space-y-4 card-glow">
+                    <input type="text" placeholder="Seu nome" class="w-full p-3 bg-dark border border-primary/30 rounded-lg focus:outline-none focus:border-primary text-light">
+                    <input type="email" placeholder="Seu e-mail" class="w-full p-3 bg-dark border border-primary/30 rounded-lg focus:outline-none focus:border-primary text-light">
+                    <textarea placeholder="Sua mensagem" rows="4" class="w-full p-3 bg-dark border border-primary/30 rounded-lg focus:outline-none focus:border-primary text-light"></textarea>
+                    <button type="submit" class="w-full bg-primary hover:bg-accent py-3 rounded-lg font-semibold transition-all">
+                        Enviar Mensagem
+                    </button>
+                </form>
             </div>
         </div>
     </section>
 
     <!-- Rodapé -->
-    <footer class="bg-dark text-white py-8">
-        <div class="container mx-auto px-4 text-center">
-            <p>&copy; 2025 - Criado por <span class="text-[#165DFF] font-semibold">Saint-engine</span> ✨</p>
-            <div class="flex justify-center gap-4 mt-4">
-                <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fa fa-github fa-2x"></i></a>
-                <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fa fa-instagram fa-2x"></i></a>
-                <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fa fa-linkedin fa-2x"></i></a>
-            </div>
-        </div>
+    <footer class="bg-darkLight border-t border-primary/20 py-8 text-center">
+        <p class="text-gray-400">© 2025 • Desenvolvido por <span class="text-primary font-semibold">Saint-engine</span> • Todos os direitos reservados</p>
     </footer>
 
 </body>
