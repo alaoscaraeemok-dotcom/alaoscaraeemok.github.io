@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Principal - Meu Canal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Sobre o Nosso Canal do YouTube</h1>
+            <a href="index.html" class="btn-sair">Sair</a>
+        </header>
+
+        <div class="conteudo">
+            <div class="info-canal">
+                <h2>📺 Canal: [Nome do Seu Canal]</h2>
+                <p>Bem-vindo ao espaço oficial do nosso canal! Aqui nós compartilhamos conteúdos sobre <strong>[tema do seu canal, ex: tecnologia, jogos, culinária]</strong>.</p>
+                <ul>
+                    <li>✅ Mais de [número] inscritos</li>
+                    <li>✅ Vídeos novos toda [dia da semana]</li>
+                    <li>✅ Conteúdo exclusivo e dicas especiais</li>
+                </ul>
+                <a href="https://youtube.com/seucanal" target="_blank" class="btn">Acessar o Canal</a>
+            </div>
+
+            <div class="acao">
+                <p>Quer ver curiosidades e informações extras?</p>
+                <a href="curiosidades.html" class="btn btn-destaque">Ver Mais Informações</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Verifica se o usuário está logado
+        if (localStorage.getItem('logado') !== "true") {
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>
