@@ -11,235 +11,37 @@
     --preto-01: #000000;
     --preto-02: #0F0F0F;
     --preto-03: #1A1A1A;
+    --preto-04: #222222;
     --roxo-principal: #6A0DAD;
     --roxo-claro: #9333EA;
     --roxo-escuro: #4B0082;
+    --roxo-suave: #7B2CBF;
     --branco: #FFFFFF;
     --cinza-claro: #E5E7EB;
+    --cinza-texto: #D1D5DB;
 }
 
 body {
     background-color: var(--preto-02);
     color: var(--branco);
     line-height: 1.6;
+    position: relative;
+    overflow-x: hidden;
 }
 
-/* ---------------------- */
-/* PÁGINA DE LOGIN */
-/* ---------------------- */
-.login-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background: linear-gradient(135deg, var(--preto-01) 0%, var(--roxo-escuro) 100%);
+/* ========================================== */
+/* IMAGENS DE FLORES - INTEGRADAS AO FUNDO */
+/* ========================================== */
+.decor-flower {
+    position: absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.06; /* Bem suave, quase transparente */
+    z-index: 0;
+    pointer-events: none;
+    filter: hue-rotate(260deg) saturate(2.5); /* Deixa as cores roxas combinando com o tema */
 }
 
-.login-card {
-    background-color: var(--branco);
-    color: var(--preto-01);
-    width: 100%;
-    max-width: 420px;
-    padding: 40px 35px;
-    border-radius: 16px;
-    box-shadow: 0 8px 30px rgba(106, 13, 173, 0.3);
-    text-align: center;
-}
-
-.login-header h2 {
-    color: var(--roxo-principal);
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 8px;
-}
-
-.login-header p {
-    color: #444;
-    font-size: 15px;
-    margin-bottom: 25px;
-}
-
-.input-group {
-    text-align: left;
-    margin-bottom: 20px;
-}
-
-.input-group label {
-    font-weight: 600;
-    color: var(--preto-03);
-    margin-bottom: 6px;
-    display: block;
-}
-
-.input-group input {
-    width: 100%;
-    padding: 12px 15px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    font-size: 16px;
-    transition: all 0.3s ease;
-}
-
-.input-group input:focus {
-    outline: none;
-    border-color: var(--roxo-principal);
-    box-shadow: 0 0 0 3px rgba(106, 13, 173, 0.15);
-}
-
-.erro-msg {
-    color: #DC2626;
-    margin-top: 10px;
-    font-size: 14px;
-}
-
-/* ---------------------- */
-/* ESTRUTURA DAS PÁGINAS */
-/* ---------------------- */
-.container {
-    max-width: 1050px;
-    margin: 40px auto;
-    background-color: var(--preto-03);
-    border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-    overflow: hidden;
-    border: 1px solid #2D2D2D;
-}
-
-.header-bar {
-    background: linear-gradient(90deg, var(--preto-01) 0%, var(--roxo-principal) 100%);
-    padding: 22px 35px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.header-bar h1 {
-    font-size: 22px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-}
-
-.content {
-    padding: 35px;
-}
-
-/* ---------------------- */
-/* SEÇÕES E CONTEÚDO */
-/* ---------------------- */
-.info-card {
-    background-color: var(--preto-02);
-    padding: 28px;
-    border-radius: 12px;
-    border-left: 4px solid var(--roxo-claro);
-    margin-bottom: 30px;
-}
-
-.info-card h2 {
-    color: #D8B4FE;
-    margin-bottom: 15px;
-    font-size: 20px;
-}
-
-.features-list {
-    margin: 18px 0 22px 22px;
-    color: var(--cinza-claro);
-}
-
-.features-list li {
-    margin-bottom: 7px;
-}
-
-.action-box {
-    text-align: center;
-    background-color: var(--preto-02);
-    padding: 25px;
-    border-radius: 12px;
-    border: 1px solid #333;
-}
-
-.action-box p {
-    font-size: 17px;
-    margin-bottom: 20px;
-    color: #CCC;
-}
-
-/* Grade de Cartões */
-.grid-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 22px;
-}
-
-.card-item {
-    background-color: var(--preto-02);
-    padding: 24px;
-    border-radius: 12px;
-    border: 1px solid #333;
-    transition: all 0.3s ease;
-}
-
-.card-item:hover {
-    transform: translateY(-6px);
-    border-color: var(--roxo-claro);
-    box-shadow: 0 6px 18px rgba(147, 51, 234, 0.15);
-}
-
-.card-item h3 {
-    color: #C084FC;
-    margin-bottom: 10px;
-    font-weight: 600;
-}
-
-.card-item p {
-    color: #DDD;
-    font-size: 15px;
-}
-
-/* ---------------------- */
-/* BOTÕES */
-/* ---------------------- */
-.btn {
-    display: inline-block;
-    padding: 12px 26px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 15px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    letter-spacing: 0.3px;
-}
-
-.btn-primary {
-    background-color: var(--roxo-principal);
-    color: var(--branco);
-}
-
-.btn-primary:hover {
-    background-color: var(--roxo-claro);
-    box-shadow: 0 4px 12px rgba(106, 13, 173, 0.3);
-}
-
-.btn-highlight {
-    background-color: var(--branco);
-    color: var(--roxo-escuro);
-    font-size: 16px;
-    padding: 14px 30px;
-}
-
-.btn-highlight:hover {
-    background-color: var(--cinza-claro);
-    transform: scale(1.04);
-}
-
-.btn-logout {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: var(--branco);
-    padding: 9px 18px;
-    font-size: 14px;
-}
-
-.btn-logout:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-}
+.flower-1 { background-image: url('https://cdn-icons-png.flaticon.com/512/3201/3201458.png'); width: 200px; height: 200px; top: 10%; left: 5%; }
+.flower-2 { background-image: url('https://cdn-icons-png.flaticon.com/512/1164/1164233.png'); width: 250px; height: 250px; bottom: 10%; right: 5%; }
+.flower-3 { background-image: url('https://cdn-icons-png.flaticon.com/512/1296/1296888.png'); width: 180px; height: 180
