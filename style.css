@@ -1,47 +1,20 @@
-/* Reset Global */
+/* ========== RESET E BASE ========== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
 }
 
-/* Paleta de Cores Oficial */
 :root {
+    /* Paleta Oficial - PRETO, ROXO, BRANCO */
     --preto-01: #000000;
-    --preto-02: #0F0F0F;
-    --preto-03: #1A1A1A;
-    --preto-04: #222222;
-    --roxo-principal: #6A0DAD;
-    --roxo-claro: #9333EA;
-    --roxo-escuro: #4B0082;
-    --roxo-suave: #7B2CBF;
-    --branco: #FFFFFF;
-    --cinza-claro: #E5E7EB;
-    --cinza-texto: #D1D5DB;
-}
-
-body {
-    background-color: var(--preto-02);
-    color: var(--branco);
-    line-height: 1.6;
-    position: relative;
-    overflow-x: hidden;
-}
-
-/* ========================================== */
-/* IMAGENS DE FLORES - INTEGRADAS AO FUNDO */
-/* ========================================== */
-.decor-flower {
-    position: absolute;
-    background-size: contain;
-    background-repeat: no-repeat;
-    opacity: 0.06; /* Bem suave, quase transparente */
-    z-index: 0;
-    pointer-events: none;
-    filter: hue-rotate(260deg) saturate(2.5); /* Deixa as cores roxas combinando com o tema */
-}
-
-.flower-1 { background-image: url('https://cdn-icons-png.flaticon.com/512/3201/3201458.png'); width: 200px; height: 200px; top: 10%; left: 5%; }
-.flower-2 { background-image: url('https://cdn-icons-png.flaticon.com/512/1164/1164233.png'); width: 250px; height: 250px; bottom: 10%; right: 5%; }
-.flower-3 { background-image: url('https://cdn-icons-png.flaticon.com/512/1296/1296888.png'); width: 180px; height: 180
+    --preto-02: #080808;
+    --preto-03: #121212;
+    --preto-04: #1E1E1E;
+    --preto-05: #292929;
+    --roxo-01: #4B0082; /* Roxo Escuro */
+    --roxo-02: #6A0DAD; /* Roxo Principal */
+    --roxo-03: #7B2CBF; /* Roxo Médio */
+    --roxo-04: #9D4EDD; /* Roxo Claro */
+    --br
