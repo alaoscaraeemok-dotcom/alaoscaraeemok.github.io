@@ -86,36 +86,26 @@
         </div>
     </div>
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js"></script>
-
     <script>
-        // CONFIGURAÇÃO DO BANCO DE DADOS (Firebase)
-        const firebaseConfig = {
-            apiKey: "AIzaSyC6Z8XfHd7sDk9PzRbTjXyWvUqEiFgHnM",
-            authDomain: "seu-projeto-bd.firebaseapp.com",
-            projectId: "seu-projeto-bd",
-            storageBucket: "seu-projeto-bd.appspot.com",
-            messagingSenderId: "1234567890",
-            appId: "1:1234567890:web:abc123def456ghi"
-        };
+        // LOGIN SIMPLES E FUNCIONAL - Nenhuma alteração visual
+        const usuarioCorreto = "admin";
+        const senhaCorreta = "123456";
 
-        // Inicializar Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-
-        // Login
         const form = document.getElementById("loginForm");
         form.addEventListener("submit", e => {
             e.preventDefault();
-            const user = document.getElementById("usuario").value + "@sistema.com";
-            const pass = document.getElementById("senha").value;
+            
+            const usuarioDigitado = document.getElementById("usuario").value.trim();
+            const senhaDigitada = document.getElementById("senha").value.trim();
             const erroMsg = document.getElementById("erroMsg");
 
-            auth.signInWithEmailAndPassword(user, pass)
-                .then(() => window.location.href = "dashboard.html")
-                .catch(() => erroMsg.textContent = "Usuário ou senha inválidos");
+            if (usuarioDigitado === usuarioCorreto && senhaDigitada === senhaCorreta) {
+                // Salva o acesso e redireciona
+                localStorage.setItem("logado", "true");
+                window.location.href = "dashboard.html";
+            } else {
+                erroMsg.textContent = "Usuário ou senha inválidos";
+            }
         });
     </script>
 </body>
