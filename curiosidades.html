@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curiosidades - Meu Canal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Informações e Curiosidades</h1>
+            <a href="menu.html" class="btn-sair">Voltar ao Menu</a>
+        </header>
+
+        <div class="conteudo">
+            <div class="curiosidade-item">
+                <h3>💡 Curiosidade 1</h3>
+                <p>Esse canal foi criado em [ano] com o objetivo de compartilhar conhecimento e entretenimento para todos os públicos.</p>
+            </div>
+
+            <div class="curiosidade-item">
+                <h3>💡 Curiosidade 2</h3>
+                <p>O vídeo mais visto do canal tem mais de [número] visualizações e fala sobre [assunto do vídeo].</p>
+            </div>
+
+            <div class="curiosidade-item">
+                <h3>💡 Curiosidade 3</h3>
+                <p>Todos os roteiros dos vídeos são feitos com muito cuidado e pesquisa para trazer o melhor conteúdo para você.</p>
+            </div>
+
+            <div class="curiosidade-item">
+                <h3>📌 Informação Extra</h3>
+                <p>Além do YouTube, também estamos presentes em outras redes sociais como Instagram e TikTok, siga-nos para não perder nada!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Verifica se o usuário está logado
+        if (localStorage.getItem('logado') !== "true") {
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>
