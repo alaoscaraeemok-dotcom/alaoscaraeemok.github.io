@@ -3,40 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Principal - Meu Canal</title>
+    <title>Painel Principal | Canal</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <header class="cabecalho">
-            <h1>Sobre o Nosso Canal 📺</h1>
-            <a href="index.html" class="btn btn-sair">Sair</a>
+        <header class="header-bar">
+            <h1>SOBRE O NOSSO CANAL</h1>
+            <a href="index.html" class="btn btn-logout">SAIR</a>
         </header>
 
-        <main class="conteudo">
-            <section class="secao-info">
-                <h2>🎥 Canal: [Nome do Seu Canal]</h2>
-                <p>Bem-vindo ao espaço oficial do nosso canal! Aqui nós compartilhamos conteúdos incríveis sobre <strong>[tema do seu canal, ex: tecnologia, jogos, ciência]</strong>, sempre com qualidade e dedicação.</p>
+        <main class="content">
+            <section class="info-card">
+                <h2>📺 CANAL: [NOME DO SEU CANAL]</h2>
+                <p>Bem-vindo à área exclusiva! Aqui produzimos conteúdo de qualidade sobre <strong>[tema do canal]</strong>, com dedicação e carinho para todos os inscritos.</p>
 
-                <ul class="lista-dados">
-                    <li>✅ Mais de [número] de inscritos</li>
-                    <li>✅ Vídeos novos toda [dia da semana]</li>
-                    <li>✅ Conteúdo exclusivo e dicas especiais</li>
-                    <li>✅ Comunidade ativa e acolhedora</li>
+                <ul class="features-list">
+                    <li>✅ Mais de [número] inscritos</li>
+                    <li>✅ Postagens semanais</li>
+                    <li>✅ Conteúdo original e exclusivo</li>
+                    <li>✅ Comunidade engajada</li>
                 </ul>
 
-                <a href="https://youtube.com/seucanal" target="_blank" class="btn btn-principal">Acessar Canal no YouTube</a>
+                <a href="https://youtube.com/seucanal" target="_blank" class="btn btn-primary">ACESSAR CANAL</a>
             </section>
 
-            <section class="secao-acao">
-                <p>Quer descobrir curiosidades e detalhes que ninguém sabe?</p>
-                <a href="curiosidades.html" class="btn btn-destaque">Ver Mais Informações e Curiosidades</a>
+            <section class="action-box">
+                <p>Quer ver detalhes, curiosidades e informações completas?</p>
+                <a href="curiosidades.html" class="btn btn-highlight">VER MAIS INFORMAÇÕES</a>
             </section>
         </main>
     </div>
 
     <script>
-        if (localStorage.getItem('logado') !== "true") {
+        if (!localStorage.getItem("logado")) {
             window.location.href = "index.html";
         }
     </script>
