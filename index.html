@@ -35,6 +35,15 @@
             .scroll-smooth {
                 scroll-behavior: smooth;
             }
+            .form-success {
+                display: none;
+                color: #4ade80;
+                text-align: center;
+                padding: 1rem;
+                border: 1px solid #4ade80;
+                border-radius: 8px;
+                margin-top: 1rem;
+            }
         }
     </style>
 </head>
@@ -196,7 +205,7 @@
             <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 items-center">
                 <div class="space-y-6">
                     <h3 class="text-2xl font-semibold">Vamos conversar?</h3>
-                    <p class="text-gray-300">Tem um projeto em mente ou quer saber mais sobre meus serviços? Envie uma mensagem ou fale diretamente por uma das redes abaixo.</p>
+                    <p class="text-gray-300">Tem um projeto em mente ou quer saber mais sobre meus serviços? Envie uma mensagem pelo formulário que respondo rapidinho!</p>
                     <div class="space-y-4 pt-4">
                         <div class="flex items-center gap-4">
                             <i class="fa fa-envelope text-primary text-xl"></i>
@@ -214,22 +223,16 @@
                         </div>
                     </div>
                 </div>
-                <form class="bg-darkLight p-8 rounded-xl border border-primary/20 space-y-4 card-glow">
-                    <input type="text" placeholder="Seu nome" class="w-full p-3 bg-dark border border-primary/30 rounded-lg focus:outline-none focus:border-primary text-light">
-                    <input type="email" placeholder="Seu e-mail" class="w-full p-3 bg-dark border border-primary/30 rounded-lg focus:outline-none focus:border-primary text-light">
-                    <textarea placeholder="Sua mensagem" rows="4" class="w-full p-3 bg-dark border border-primary/30 rounded-lg focus:outline-none focus:border-primary text-light"></textarea>
-                    <button type="submit" class="w-full bg-primary hover:bg-accent py-3 rounded-lg font-semibold transition-all">
-                        Enviar Mensagem
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
 
-    <!-- Rodapé -->
-    <footer class="bg-darkLight border-t border-primary/20 py-8 text-center">
-        <p class="text-gray-400">© 2025 • Desenvolvido por <span class="text-primary font-semibold">Saint-engine</span> • Todos os direitos reservados</p>
-    </footer>
-
-</body>
-</html>
+                <!-- FORMULÁRIO FUNCIONAL AQUI -->
+                <form action="https://formspree.io/f/seu-codigo-aqui" method="POST" class="bg-darkLight p-8 rounded-xl border border-primary/20 space-y-4 card-glow" id="form-contato">
+                    <input type="text" name="nome" placeholder="Seu nome" required class="w-full p-3 bg-dark border border-primary/30 rounded-lg focus:outline-none focus:border-primary text-light">
+                    <input type="email" name="email" placeholder="Seu e-mail" required class="w-full p-3 bg-dark border border-primary/30 rounded-lg focus:outline-none focus:border-primary text-light">
+                    <textarea name="mensagem" placeholder="Sua mensagem" rows="4" required class="w-full p-3 bg-dark border border-primary/30 rounded-lg focus:outline-none focus:border-primary text-light"></textarea>
+                    
+                    <!-- Campo opcional: assunto -->
+                    <input type="hidden" name="_subject" value="Nova mensagem do site Saint-engine!">
+                    <!-- Redireciona para página de sucesso (opcional) -->
+                    <input type="hidden" name="_next" value="https://alaoscaraeemok-dotcom.github.io/#contato">
+                    
+                    <button type="submit" class="w-full bg-primary hover:bg-accent py-3 rounded-lg
