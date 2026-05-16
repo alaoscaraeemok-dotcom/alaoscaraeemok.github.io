@@ -36,9 +36,8 @@
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- FIREBASE - CONFIGURAÇÃO ORIGINAL SUA -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js"></script>
+    <!-- FIREBASE - VERSÃO COMPATÍVEL E CERTA -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase.js"></script>
 </head>
 <body class="bg-preto-800 font-inter text-white min-h-screen relative overflow-hidden">
 
@@ -144,9 +143,12 @@
     </main>
 
     <script>
-        if (!localStorage.getItem("logado")) window.location.href = "index.html";
+        // VERIFICAÇÃO DE LOGIN - CORRIGIDO
+        if (!localStorage.getItem("logado")) {
+            window.location.href = "index.html";
+        }
 
-        // FIREBASE CONFIG ORIGINAL
+        // FIREBASE CONFIGURAÇÃO ORIGINAL SUA - CERTA
         const firebaseConfig = {
             apiKey: "AIzaSyBrJNVLqLqzrnRBYXrQwS-PGIzwOnScKlS",
             authDomain: "banco-de-dados-fcb5c.firebaseapp.com",
@@ -157,7 +159,8 @@
             appId: "1:248314616829:web:48582df73a78f84c171794"
         };
 
-        const app = firebase.initializeApp(firebaseConfig);
+        // INICIALIZAÇÃO CORRETA
+        firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
         const videosRef = db.ref("videos");
 
@@ -176,19 +179,29 @@
             if (link.includes('youtu.be/')) {
                 id = link.split('youtu.be/')[1].split('?')[0];
             } else if (link.includes('youtube.com/watch')) {
-                try { id = new URL(link).searchParams.get('v'); } catch (e) { id = ''; }
+                try { 
+                    id = new URL(link).searchParams.get('v'); 
+                } catch (e) { 
+                    id = ''; 
+                }
             }
             return id ? `https://img.youtube.com/vi/${id}/mqdefault.jpg` : 'https://via.placeholder.com/320x180/141414/9D4EDD?text=Sem+Capa';
         }
 
         // Traduzir categoria
         function traduzirCategoria(cat) {
-            const nomes = { tutoriais:"Tutoriais", jogos:"Jogos", vlogs:"Vlogs", curiosidades:"Curiosidades", analises:"Análises" };
+            const nomes = { 
+                tutoriais:"Tutoriais", 
+                jogos:"Jogos", 
+                vlogs:"Vlogs", 
+                curiosidades:"Curiosidades", 
+                analises:"Análises" 
+            };
             return nomes[cat] || cat;
         }
 
 
-        // ADICIONAR VÍDEO NO FIREBASE
+        // ADICIONAR VÍDEO NO FIREBASE - FUNCIONANDO
         form.addEventListener('submit', e => {
             e.preventDefault();
             const novoVideo = {
@@ -208,17 +221,21 @@
         });
 
 
-        // FILTRO
+        // FILTRO POR CATEGORIA
         botoesFiltro.forEach(btn => {
             btn.addEventListener('click', () => {
-                botoesFiltro.forEach(b => { b.classList.remove('active','bg-roxo-700/40','text-white'); b.classList.add('bg-preto-600/60','text-gray-300'); });
-                btn.classList.add('active','bg-roxo-700/40','text-white'); btn.classList.remove('bg-preto-600/60','text-gray-300');
+                botoesFiltro.forEach(b => { 
+                    b.classList.remove('active','bg-roxo-700/40','text-white'); 
+                    b.classList.add('bg-preto-600/60','text-gray-300'); 
+                });
+                btn.classList.add('active','bg-roxo-700/40','text-white'); 
+                btn.classList.remove('bg-preto-600/60','text-gray-300');
                 renderizarLista(btn.dataset.filtro);
             });
         });
 
 
-        // MARCAR/DESMARCAR
+        // MARCAR/DESMARCAR VÍDEOS
         function alternarSelecao(id) {
             if (idsSelecionados.includes(id)) {
                 idsSelecionados = idsSelecionados.filter(i => i !== id);
@@ -228,6 +245,4 @@
             atualizarBotaoExclusao();
         }
 
-        // APARECER OU OCULTAR BOTÃO DE EXCLUIR SELECIONADOS
-        function atualizarBotaoExclusao() {
-            btnEx
+        // APARECER OU OC
