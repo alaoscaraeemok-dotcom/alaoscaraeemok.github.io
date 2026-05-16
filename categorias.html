@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorias | Sistema de Vídeos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        preto: { 900: '#000000', 800: '#050505', 700: '#0F0F0F', 600: '#1A1A1A', 500: '#242424' },
+                        roxo: { 900: '#2D0C5E', 800: '#4B0082', 700: '#5A189A', 600: '#7B2CBF', 500: '#9D4EDD', 400: '#C77DFF' }
+                    },
+                    fontFamily: { inter: ['Inter', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow { text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+            .bg-gradient-roxo { background: linear-gradient(135deg, #000000 0%, #4B0082 100%); }
+            .bordas-roxas { border: 1px solid rgba(157, 78, 221, 0.15); }
+            .sombra-hover { box-shadow: 0 8px 25px rgba(123, 44, 191, 0.15); }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js"></script>
+</head>
+<body class="bg-preto-800 font-inter text-white min-h-screen relative overflow-hidden">
+
+    <div class="absolute w-[600px] h-[600px] opacity-[0.03] -top-32 -right-32 rounded-full bg-roxo-500 blur-3xl"></div>
+    <div class="absolute w-[600px] h-[600px] opacity-[0.03] -bottom-32 -left-32 rounded-full bg-roxo-500 blur-3xl"></div>
+
+    <header class="sticky top-0 z-50 bg-gradient-roxo shadow-[0_4px_20px_rgba(0,0,0,0.4)] border-b border-roxo-700/20">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-roxo-500/20 flex items-center justify-center">
+                    <i class="fa fa-th-large text-roxo-400 text-lg"></i>
+                </div>
+                <h2 class="text-[20px] font-bold tracking-wider text-shadow">GERENCIAR CATEGORIAS</h2>
+            </div>
+            <div class="flex gap-3">
+                <a href="menu.html" class="border border-roxo-400/40 text-roxo-300 hover:bg-roxo-700/20 px-4 py-2 rounded-lg text-sm font-medium transition-all">Voltar ao Menu</a>
+                <button id="btnSair" class="bg-red-900/60 hover:bg-red-800/80 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all">Sair</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 relative z-10">
+
+        <!-- Adicionar Categoria -->
+        <section class="mb-10">
+            <div class="bg-preto-700/70 backdrop-blur-sm rounded-2xl bordas-roxas p-8 sombra-hover">
+                <h3 class="text-lg font-semibold text-roxo-400 mb-4">Nova Categoria</h3>
+                <form id="formCategoria" class="grid md:grid-cols-3 gap-4 items-end">
+                    <div>
+                        <label class="block text-gray-300 text-sm mb-2">Nome da Categoria</label>
+                        <input type="text" id="nomeCategoria" class="w-full bg-preto-600/60 bordas-roxas rounded-lg px-4 py-3 focus:border-roxo-500 outline-none" placeholder="Ex: Tutoriais, Jogos..." required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 text-sm mb-2">Slug (ID único)</label>
+                        <input type="text" id="slugCategoria" class="w-full bg-preto-600/60 bordas-roxas rounded-lg px-4 py-3 focus:border-roxo-500 outline-none" placeholder="Ex: tutoriais, jogos..." required>
+                    </div>
+                    <button type="submit" class="bg-gradient-roxo hover:shadow-lg text-white font-semibold px-6 py-3 rounded-lg transition-all">
+                        <i class="fa fa-plus mr-2"></i> Adicionar
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Lista de Categorias -->
+        <section>
+            <div class="bg-preto-700/70 backdrop-blur-sm rounded-2xl bordas-roxas p-8 sombra-hover">
+                <h3 class="text-lg font-semibold text-roxo-400 mb-6">Categorias Cadastradas</h3>
+                <div id="listaCategorias" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="col-span-full text-center py-10 text-gray-500 italic">Carregando...</div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        if (!localStorage.getItem("logado")) window.location.href = "index.html";
+
+        // Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyBrJNVLqLqzrnRBYXrQwS-PGIzwOnScKlS",
+            authDomain: "banco-de-dados-fcb5c.firebaseapp.com",
+            databaseURL: "https://banco-de-dados-fcb5c-default-rtdb.firebaseio.com",
+            projectId: "banco-de-dados-fcb5c",
+            storageBucket: "banco-de-dados-fcb5c.firebasestorage.app",
+            messagingSenderId: "248314616829",
+            appId: "1:248314616829:web:48582df73a78f84c171794"
+        };
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+        const categoriasRef = db.ref("categorias");
+
+        const form = document.getElementById('formCategoria');
+        const lista = document.getElementById('listaCategorias');
+
+
+        // Adicionar
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            const nova = {
+                nome: document.getElementById('nomeCategoria').value.trim(),
+                slug: document.getElementById('slugCategoria').value.trim().toLowerCase().replace(/\s/g, ''),
+                dataCriacao: Date.now()
+            };
+
+            categoriasRef.child(nova.slug).set(nova)
+            .then(() => { form.reset(); alert('✅ Categoria adicionada!'); })
+            .catch(err => alert('❌ Erro: ' + err));
+        });
+
+
+        // Carregar e Renderizar
+        categoriasRef.on('value', snap => {
+            lista.innerHTML = "";
+            if (!snap.exists()) { lista.innerHTML = `<div class="col-span-full text-center py-10 text-gray-500 italic">Nenhuma categoria cadastrada.</div>`; return; }
+
+            snap.forEach(item => {
+                const cat = item.val();
+                const card = document.createElement('div');
+                card.className = 'bg-preto-600/50 bordas-roxas rounded-lg p-4 flex justify-between items-center';
+                card.innerHTML = `
+                    <div>
+                        <h4 class="font-semibold text-white">${cat.nome}</h4>
+                        <p class="text-xs text-gray-400">ID: ${cat.slug}</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="editarCategoria('${cat.slug}', '${cat.nome}')" class="text-roxo-400 hover:text-roxo-300"><i class="fa fa-pencil"></i></button>
+                        <button onclick="excluirCategoria('${cat.slug}')" class="text-red-400 hover:text-red-300"><i class="fa fa-trash"></i></button>
+                    </div>
+                `;
+                lista.appendChild(card);
+            });
+        });
+
+
+        // Funções
+        function excluirCategoria(slug) {
+            if (confirm('Deseja excluir esta categoria?')) categoriasRef.child(slug).remove();
+        }
+        function editarCategoria(slug, nomeAtual) {
+            const novoNome = prompt('Editar nome:', nomeAtual);
+            if (novoNome && novoNome.trim() !== "") categoriasRef.child(slug).update({ nome: novoNome.trim() });
+        }
+
+
+        // Logout
+        document.getElementById('btnSair').addEventListener('click', () => {
+            localStorage.removeItem('logado');
+            window.location.href = "index.html";
+        });
+    </script>
+</body>
+</html>
