@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciar Vídeos | Sistema de Vídeos</title>
+    <title>Dashboard | Sistema de Vídeos</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <script>
@@ -31,30 +31,24 @@
             .bordas-roxas { border: 1px solid rgba(157, 78, 221, 0.15); }
             .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
             .scrollbar-hide::-webkit-scrollbar { display: none; }
-            .sombra-hover { box-shadow: 0 8px 25px rgba(123, 44, 191, 0.15); }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- FIREBASE - CONFIGURAÇÃO -->
+    <!-- FIREBASE - DEIXE AQUI SUAS CONFIGURAÇÕES -->
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js"></script>
 </head>
-<body class="bg-preto-800 font-inter text-white min-h-screen relative overflow-hidden">
+<body class="bg-preto-800 font-inter text-white min-h-screen relative overflow-x-hidden">
 
-    <!-- Elementos decorativos de fundo -->
-    <div class="absolute w-[600px] h-[600px] opacity-[0.03] -top-32 -right-32 rounded-full bg-roxo-500 blur-3xl"></div>
-    <div class="absolute w-[600px] h-[600px] opacity-[0.03] -bottom-32 -left-32 rounded-full bg-roxo-500 blur-3xl"></div>
+    <!-- Elementos Decorativos -->
+    <div class="absolute w-[450px] h-[450px] opacity-[0.02] top-0 right-0" style="background: url('https://cdn-icons-png.flaticon.com/512/1296/1296888.png') no-repeat center/contain;"></div>
+    <div class="absolute w-[450px] h-[450px] opacity-[0.02] bottom-0 left-0" style="background: url('https://cdn-icons-png.flaticon.com/512/3162/3162338.png') no-repeat center/contain;"></div>
 
     <!-- Barra Superior -->
     <header class="sticky top-0 z-50 bg-gradient-roxo shadow-[0_4px_20px_rgba(0,0,0,0.4)] border-b border-roxo-700/20">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-lg bg-roxo-500/20 flex items-center justify-center">
-                    <i class="fa fa-film text-roxo-400 text-lg"></i>
-                </div>
-                <h2 class="text-[20px] font-bold tracking-wider text-shadow">GERENCIAR VÍDEOS</h2>
-            </div>
+            <h2 class="text-[20px] font-bold tracking-wider text-shadow">PAINEL DE GERENCIAMENTO</h2>
             <div class="flex gap-3">
                 <a href="menu.html" class="border border-roxo-400/40 text-roxo-300 hover:bg-roxo-700/20 px-4 py-2 rounded-lg text-sm font-medium transition-all">Menu Principal</a>
                 <button id="btnSair" class="bg-red-900/60 hover:bg-red-800/80 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all">Sair</button>
@@ -64,7 +58,7 @@
 
     <main class="container mx-auto px-4 py-8 relative z-10">
 
-        <!-- SEÇÃO: ADICIONAR NOVO VÍDEO -->
+        <!-- SEÇÃO: ADICIONAR VÍDEO -->
         <section class="mb-12">
             <div class="bg-preto-700/70 backdrop-blur-sm rounded-2xl bordas-roxas shadow-[0_8px_32px_rgba(0,0,0,0.3)] overflow-hidden">
                 <div class="bg-preto-600/50 border-b bordas-roxas px-8 py-5">
@@ -155,6 +149,7 @@
 
         // ===== CONFIGURAÇÃO DO FIREBASE =====
         const firebaseConfig = {
+            // COLOQUE AQUI SUAS CONFIGURAÇÕES DO FIREBASE QUE VOCÊ TINHA ANTES
             apiKey: "AIzaSyBrJNVLqLqzrnRBYXrQwS-PGIzwOnScKlS",
             authDomain: "banco-de-dados-fcb5c.firebaseapp.com",
             databaseURL: "https://banco-de-dados-fcb5c-default-rtdb.firebaseio.com",
@@ -169,14 +164,13 @@
         const db = firebase.database();
         const videosRef = db.ref("videos");
 
-        // Elementos da página
+        // Elementos
         const form = document.getElementById('formVideo');
         const listaContainer = document.getElementById('listaVideos');
         const botoesFiltro = document.querySelectorAll('.filtro-btn');
         const btnExcluirSelecionados = document.getElementById('btnExcluirSelecionados');
-        
-        let idsSelecionados = []; // Armazena os IDs dos vídeos marcados
-        let todosOsVideos = [];  // Guarda todos os vídeos carregados
+        let idsSelecionados = [];
+        let todosOsVideos = [];
 
 
         // 🔧 Função: Pegar capa do YouTube
@@ -185,15 +179,10 @@
             if (link.includes('youtu.be/')) {
                 id = link.split('youtu.be/')[1].split('?')[0];
             } else if (link.includes('youtube.com/watch')) {
-                try { 
-                    id = new URL(link).searchParams.get('v'); 
-                } catch (e) { 
-                    id = ''; 
-                }
+                try { id = new URL(link).searchParams.get('v'); } catch (e) { id = ''; }
             }
             return id ? `https://img.youtube.com/vi/${id}/mqdefault.jpg` : 'https://via.placeholder.com/320x180/141414/9D4EDD?text=Sem+Capa';
         }
-
 
         // 🔧 Função: Traduzir nome da categoria
         function traduzirCategoria(cat) {
@@ -203,7 +192,6 @@
             };
             return nomes[cat] || cat;
         }
-
 
         // ✅ Adicionar novo vídeo NO FIREBASE
         form.addEventListener('submit', e => {
@@ -219,20 +207,10 @@
             videosRef.push(novoVideo)
             .then(() => {
                 form.reset();
-                alert('✅ Vídeo salvo com sucesso!');
+                alert('✅ Vídeo salvo no Firebase!');
             })
-            .catch(err => alert('❌ Erro ao salvar: ' + err));
+            .catch(err => alert('❌ Erro: ' + err));
         });
 
-
         // 🔘 Filtrar por categoria
-        botoesFiltro.forEach(btn => {
-            btn.addEventListener('click', () => {
-                botoesFiltro.forEach(b => {
-                    b.classList.remove('active', 'bg-roxo-700/40', 'text-white');
-                    b.classList.add('bg-preto-600/60', 'text-gray-300');
-                });
-                btn.classList.add('active', 'bg-roxo-700/40', 'text-white');
-                btn.classList.remove('bg-preto-600/60', 'text-gray-300');
-
-                renderizarLista
+        botoesFiltro.forEach(
