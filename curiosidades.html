@@ -3,43 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curiosidades - Meu Canal</title>
+    <title>Curiosidades | Canal</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <header class="cabecalho">
-            <h1>💡 Informações e Curiosidades</h1>
-            <a href="menu.html" class="btn btn-sair">Voltar ao Menu</a>
+        <header class="header-bar">
+            <h1>INFORMAÇÕES & CURIOSIDADES</h1>
+            <a href="menu.html" class="btn btn-logout">VOLTAR</a>
         </header>
 
-        <main class="conteudo">
-            <div class="grade-curiosidades">
-                <div class="cartao-curiosidade">
-                    <h3>📅 Quando começou?</h3>
-                    <p>O canal foi criado em [ano] com o objetivo de compartilhar conhecimento e entretenimento para todos os públicos, crescendo cada dia mais graças a vocês.</p>
+        <main class="content">
+            <div class="grid-cards">
+                <div class="card-item">
+                    <h3>📅 INÍCIO</h3>
+                    <p>O canal foi criado em [ano], com o objetivo de compartilhar conhecimento e entretenimento, crescendo graças ao apoio de todos vocês.</p>
                 </div>
 
-                <div class="cartao-curiosidade">
-                    <h3>🎬 Vídeo mais famoso</h3>
-                    <p>O vídeo mais visto do canal tem mais de [número] visualizações e fala sobre [assunto do vídeo], sendo o conteúdo que mais marcou a nossa história até hoje.</p>
+                <div class="card-item">
+                    <h3>🎬 MAIOR SUCESSO</h3>
+                    <p>O vídeo mais visto tem mais de [número] visualizações e é sobre [assunto], sendo o conteúdo que mais marcou nossa trajetória.</p>
                 </div>
 
-                <div class="cartao-curiosidade">
-                    <h3>✍️ Bastidores</h3>
-                    <p>Todos os roteiros, gravações e edições são feitos com muito cuidado e pesquisa, para garantir que você tenha a melhor experiência possível ao assistir.</p>
+                <div class="card-item">
+                    <h3>⚙️ BASTIDORES</h3>
+                    <p>Todo conteúdo é planejado, gravado e editado com cuidado, para entregar sempre o melhor material possível para nossa audiência.</p>
                 </div>
 
-                <div class="cartao-curiosidade">
-                    <h3>🌐 Nossas Redes</h3>
-                    <p>Além do YouTube, também estamos presentes no Instagram e TikTok! Lá compartilhamos conteúdos extras, novidades e o dia a dia da nossa equipe.</p>
+                <div class="card-item">
+                    <h3>🌐 REDES SOCIAIS</h3>
+                    <p>Estamos também no Instagram e TikTok, onde compartilhamos novidades, bastidores e conteúdo extra diário.</p>
                 </div>
             </div>
         </main>
     </div>
 
     <script>
-        if (localStorage.getItem('logado') !== "true") {
+        if (!localStorage.getItem("logado")) {
             window.location.href = "index.html";
         }
     </script>
