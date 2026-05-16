@@ -208,7 +208,7 @@
         });
 
 
-        // CARREGAR DADOS DO BANCO
+        // CARREGAR DADOS DO BANCO SEMPRE ATUALIZADO
         referenciaVideos.on('value', (snapshot) => {
             bancoVideos = [];
             snapshot.forEach(item => {
@@ -220,15 +220,15 @@
 
         // EXCLUIR VÍDEO
         function excluirVideo(id) {
-            if (confirm('Tem certeza que deseja excluir esse vídeo?')) {
+            if (confirm('Tem certeza que deseja excluir esse vídeo? Essa ação não pode ser desfeita!')) {
                 db.ref(`videos/${id}`).remove()
-                .then(() => alert('🗑️ Vídeo excluído!'))
+                .then(() => alert('🗑️ Vídeo excluído com sucesso!'))
                 .catch(erro => alert('Erro ao excluir: ' + erro));
             }
         }
 
 
-        // ADICIONAR VISUALIZAÇÃO
+        // ADICIONAR VISUALIZAÇÃO AO CLICAR NO VÍDEO
         function adicionarVisualizacao(id, viewsAtuais) {
             db.ref(`videos/${id}/visualizacoes`).set(viewsAtuais + 1);
         }
@@ -240,16 +240,8 @@
         }
 
 
-        // TRADUZIR CATEGORIA
+        // TRADUZIR NOME DA CATEGORIA
         function traduzirCategoria(cat) {
             const nomes = {
                 tutoriais: "Tutoriais", jogos: "Jogos", vlogs: "Vlogs",
-                curiosidades: "Curiosidades", analises: "Análises"
-            };
-            return nomes[cat] || cat;
-        }
-
-
-        // RENDERIZAR LISTA COMPLETA E FUNCIONAL
-        function renderizarLista(filtro) {
-            listaContainer.innerHTML = ""
+                curiosidades: "Curiosidades", analises: "Anál
