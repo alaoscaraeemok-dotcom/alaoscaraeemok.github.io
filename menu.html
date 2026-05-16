@@ -8,32 +8,34 @@
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Sobre o Nosso Canal do YouTube</h1>
-            <a href="index.html" class="btn-sair">Sair</a>
+        <header class="cabecalho">
+            <h1>Sobre o Nosso Canal 📺</h1>
+            <a href="index.html" class="btn btn-sair">Sair</a>
         </header>
 
-        <div class="conteudo">
-            <div class="info-canal">
-                <h2>📺 Canal: [Nome do Seu Canal]</h2>
-                <p>Bem-vindo ao espaço oficial do nosso canal! Aqui nós compartilhamos conteúdos sobre <strong>[tema do seu canal, ex: tecnologia, jogos, culinária]</strong>.</p>
-                <ul>
-                    <li>✅ Mais de [número] inscritos</li>
+        <main class="conteudo">
+            <section class="secao-info">
+                <h2>🎥 Canal: [Nome do Seu Canal]</h2>
+                <p>Bem-vindo ao espaço oficial do nosso canal! Aqui nós compartilhamos conteúdos incríveis sobre <strong>[tema do seu canal, ex: tecnologia, jogos, ciência]</strong>, sempre com qualidade e dedicação.</p>
+
+                <ul class="lista-dados">
+                    <li>✅ Mais de [número] de inscritos</li>
                     <li>✅ Vídeos novos toda [dia da semana]</li>
                     <li>✅ Conteúdo exclusivo e dicas especiais</li>
+                    <li>✅ Comunidade ativa e acolhedora</li>
                 </ul>
-                <a href="https://youtube.com/seucanal" target="_blank" class="btn">Acessar o Canal</a>
-            </div>
 
-            <div class="acao">
-                <p>Quer ver curiosidades e informações extras?</p>
-                <a href="curiosidades.html" class="btn btn-destaque">Ver Mais Informações</a>
-            </div>
-        </div>
+                <a href="https://youtube.com/seucanal" target="_blank" class="btn btn-principal">Acessar Canal no YouTube</a>
+            </section>
+
+            <section class="secao-acao">
+                <p>Quer descobrir curiosidades e detalhes que ninguém sabe?</p>
+                <a href="curiosidades.html" class="btn btn-destaque">Ver Mais Informações e Curiosidades</a>
+            </section>
+        </main>
     </div>
 
     <script>
-        // Verifica se o usuário está logado
         if (localStorage.getItem('logado') !== "true") {
             window.location.href = "index.html";
         }
