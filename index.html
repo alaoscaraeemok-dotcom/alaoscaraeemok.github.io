@@ -3,55 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Canal Oficial</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Acesso | Sistema de Gerenciamento</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        preto: {
+                            900: '#000000',
+                            800: '#050505',
+                            700: '#0F0F0F',
+                            600: '#1A1A1A',
+                            500: '#242424',
+                        },
+                        roxo: {
+                            900: '#2D0C5E',
+                            800: '#4B0082',
+                            700: '#5A189A',
+                            600: '#7B2CBF',
+                            500: '#9D4EDD',
+                            400: '#C77DFF',
+                        }
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow { text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+            .bg-gradient-roxo { background: linear-gradient(135deg, #000000 0%, #4B0082 100%); }
+            .bg-gradient-card { background: linear-gradient(145deg, #1A1A1A 0%, #0F0F0F 100%); }
+            .bordas-roxas { border: 1px solid rgba(157, 78, 221, 0.15); }
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
-<body>
-    <!-- Elementos decorativos sutis -->
-    <div class="bg-flower flower-top-left"></div>
-    <div class="bg-flower flower-bottom-right"></div>
-    <div class="bg-flower flower-center-left"></div>
+<body class="bg-preto-800 font-inter text-white min-h-screen flex items-center justify-center relative overflow-hidden">
 
-    <div class="login-container">
-        <div class="login-card">
-            <div class="login-header">
-                <h1>ACESSO EXCLUSIVO</h1>
-                <p>Entre para gerenciar todo o conteúdo do seu canal</p>
+    <!-- Elementos Decorativos -->
+    <div class="absolute w-[400px] h-[400px] opacity-[0.03] -top-20 -left-20" style="background: url('https://cdn-icons-png.flaticon.com/512/3201/3201458.png') no-repeat center/contain;"></div>
+    <div class="absolute w-[400px] h-[400px] opacity-[0.03] -bottom-20 -right-20" style="background: url('https://cdn-icons-png.flaticon.com/512/1164/1164233.png') no-repeat center/contain;"></div>
+
+    <!-- Card de Login -->
+    <div class="w-full max-w-md z-10 px-4">
+        <div class="bg-white rounded-3xl shadow-[0_8px_40px_rgba(90,24,154,0.25)] p-8">
+            <div class="text-center mb-8">
+                <h1 class="text-roxo-800 text-[26px] font-extrabold tracking-wider text-shadow">ACESSO RESTRITO</h1>
+                <p class="text-gray-600 text-sm mt-2">Entre para acessar o painel de gerenciamento</p>
             </div>
 
-            <form id="loginForm" class="login-form">
-                <div class="input-group">
-                    <label for="usuario">Usuário</label>
-                    <input type="text" id="usuario" placeholder="Digite seu nome de usuário" required>
+            <form id="loginForm" class="space-y-5">
+                <div>
+                    <label class="block text-gray-800 font-semibold mb-2 text-sm">Usuário</label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"><i class="fa fa-user"></i></span>
+                        <input type="text" id="usuario" class="w-full pl-11 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-roxo-600 focus:ring-2 focus:ring-roxo-300/20 outline-none transition-all duration-300 text-gray-800" placeholder="Digite seu usuário" required>
+                    </div>
                 </div>
 
-                <div class="input-group">
-                    <label for="senha">Senha</label>
-                    <input type="password" id="senha" placeholder="Digite sua senha" required>
+                <div>
+                    <label class="block text-gray-800 font-semibold mb-2 text-sm">Senha</label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"><i class="fa fa-lock"></i></span>
+                        <input type="password" id="senha" class="w-full pl-11 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-roxo-600 focus:ring-2 focus:ring-roxo-300/20 outline-none transition-all duration-300 text-gray-800" placeholder="Digite sua senha" required>
+                    </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-full">ENTRAR</button>
-                <p id="erroMsg" class="erro-mensagem"></p>
+                <button type="submit" class="w-full bg-gradient-roxo hover:shadow-lg hover:shadow-roxo-800/20 text-white font-semibold py-3.5 rounded-xl transition-all duration-300 transform hover:-translate-y-0.5">
+                    ENTRAR NO SISTEMA
+                </button>
+
+                <p id="erroMsg" class="text-red-600 text-center text-sm h-5"></p>
             </form>
         </div>
     </div>
 
-    <script>
-        const usuarioCorreto = "admin";
-        const senhaCorreta = "123456";
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js"></script>
 
+    <script>
+        // CONFIGURAÇÃO DO BANCO DE DADOS (Firebase)
+        const firebaseConfig = {
+            apiKey: "AIzaSyC6Z8XfHd7sDk9PzRbTjXyWvUqEiFgHnM",
+            authDomain: "seu-projeto-bd.firebaseapp.com",
+            projectId: "seu-projeto-bd",
+            storageBucket: "seu-projeto-bd.appspot.com",
+            messagingSenderId: "1234567890",
+            appId: "1:1234567890:web:abc123def456ghi"
+        };
+
+        // Inicializar Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // Login
         const form = document.getElementById("loginForm");
         form.addEventListener("submit", e => {
             e.preventDefault();
-            const user = document.getElementById("usuario").value.trim();
-            const pass = document.getElementById("senha").value.trim();
+            const user = document.getElementById("usuario").value + "@sistema.com";
+            const pass = document.getElementById("senha").value;
+            const erroMsg = document.getElementById("erroMsg");
 
-            if (user === usuarioCorreto && pass === senhaCorreta) {
-                localStorage.setItem("logado", "true");
-                window.location.href = "dashboard.html";
-            } else {
-                document.getElementById("erroMsg").textContent = "Usuário ou senha incorretos";
-            }
+            auth.signInWithEmailAndPassword(user, pass)
+                .then(() => window.location.href = "dashboard.html")
+                .catch(() => erroMsg.textContent = "Usuário ou senha inválidos");
         });
     </script>
 </body>
