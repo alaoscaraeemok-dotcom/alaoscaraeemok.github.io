@@ -7,72 +7,85 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="decor-flower flower-4"></div>
-    <div class="decor-flower flower-5"></div>
-    <div class="decor-flower flower-6"></div>
+    <!-- Flores decorativas -->
+    <div class="bg-flower flower-top-right"></div>
+    <div class="bg-flower flower-bottom-left"></div>
+    <div class="bg-flower flower-middle-right"></div>
 
-    <div class="container dashboard-container">
-        <header class="header-bar">
-            <h1>PAINEL DE GERENCIAMENTO</h1>
-            <div class="header-actions">
-                <a href="menu.html" class="btn btn-secondary">Menu Principal</a>
-                <a href="index.html" class="btn btn-logout">SAIR</a>
+    <div class="page-wrapper">
+        <!-- Barra Superior Fixa -->
+        <header class="top-bar">
+            <div class="top-bar-content">
+                <h2>PAINEL DE GERENCIAMENTO</h2>
+                <div class="top-bar-actions">
+                    <a href="menu.html" class="btn btn-outline">Menu Principal</a>
+                    <a href="index.html" class="btn btn-danger">Sair</a>
+                </div>
             </div>
         </header>
 
-        <main class="content">
-            <!-- Área de Cadastro -->
-            <section class="form-section">
-                <h2>📤 Adicionar Novo Vídeo</h2>
-                <form id="videoForm" class="video-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Título do Vídeo</label>
-                            <input type="text" id="titulo" placeholder="Ex: Como fazer algo incrível" required>
+        <!-- Conteúdo Principal -->
+        <main class="main-content">
+            <!-- Seção: Adicionar Vídeo -->
+            <section class="card-container">
+                <div class="card-header">
+                    <h3>📤 Adicionar Novo Vídeo</h3>
+                </div>
+                <div class="card-body">
+                    <form id="novoVideoForm" class="form-grid">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label>Título do Vídeo</label>
+                                <input type="text" id="tituloVid" placeholder="Ex: Como editar vídeos profissionalmente" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Categoria</label>
+                                <select id="categoriaVid" required>
+                                    <option value="">Selecione uma categoria</option>
+                                    <option value="tutoriais">📚 Tutoriais e Dicas</option>
+                                    <option value="jogos">🎮 Jogos e Gameplays</option>
+                                    <option value="vlogs">🎥 Vlogs e Diários</option>
+                                    <option value="curiosidades">💡 Curiosidades e Fatos</option>
+                                    <option value="analises">📊 Análises e Avaliações</option>
+                                    <option value="entretenimento">🎭 Entretenimento</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>Categoria</label>
-                            <select id="categoria" required>
-                                <option value="">Selecione...</option>
-                                <option value="tutoriais">Tutoriais e Dicas</option>
-                                <option value="jogos">Jogos e Gameplays</option>
-                                <option value="vlogs">Vlogs e Diários</option>
-                                <option value="curiosidades">Curiosidades e Fatos</option>
-                                <option value="analises">Análises e Avaliações</option>
-                            </select>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label>Link do YouTube</label>
+                                <input type="url" id="linkVid" placeholder="https://www.youtube.com/watch?v=..." required>
+                            </div>
+                            <div class="form-group">
+                                <label>Descrição Curta</label>
+                                <textarea id="descricaoVid" rows="3" placeholder="Escreva um pequeno resumo sobre o vídeo..."></textarea>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group full-width">
-                            <label>Link do Vídeo (YouTube)</label>
-                            <input type="url" id="link" placeholder="https://youtube.com/..." required>
+                        <div class="form-full">
+                            <button type="submit" class="btn btn-primary btn-lg">Salvar Vídeo</button>
                         </div>
-                    </div>
-                    <div class="form-group full-width">
-                        <label>Descrição Curta</label>
-                        <textarea id="descricao" rows="3" placeholder="Um resumo sobre o vídeo..."></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Salvar Vídeo</button>
-                </form>
-            </section>
-
-            <!-- Filtro por Categoria -->
-            <section class="filter-section">
-                <h2>🎞️ Meus Vídeos</h2>
-                <div class="filter-buttons">
-                    <button class="btn-filter active" data-categoria="todos">Todos</button>
-                    <button class="btn-filter" data-categoria="tutoriais">Tutoriais</button>
-                    <button class="btn-filter" data-categoria="jogos">Jogos</button>
-                    <button class="btn-filter" data-categoria="vlogs">Vlogs</button>
-                    <button class="btn-filter" data-categoria="curiosidades">Curiosidades</button>
-                    <button class="btn-filter" data-categoria="analises">Análises</button>
+                    </form>
                 </div>
             </section>
 
-            <!-- Lista de Vídeos -->
-            <section class="videos-grid" id="videosContainer">
-                <!-- Os vídeos aparecerão aqui via JavaScript -->
-                <div class="empty-message">Nenhum vídeo cadastrado ainda. Adicione o primeiro acima!</div>
+            <!-- Seção: Visualizar Vídeos -->
+            <section class="card-container">
+                <div class="card-header">
+                    <h3>🎞️ Meus Vídeos Organizados</h3>
+                    <div class="filtro-categorias">
+                        <button class="btn-filtro active" data-filtro="todos">Todos</button>
+                        <button class="btn-filtro" data-filtro="tutoriais">Tutoriais</button>
+                        <button class="btn-filtro" data-filtro="jogos">Jogos</button>
+                        <button class="btn-filtro" data-filtro="vlogs">Vlogs</button>
+                        <button class="btn-filtro" data-filtro="curiosidades">Curiosidades</button>
+                        <button class="btn-filtro" data-filtro="analises">Análises</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div id="gradeVideos" class="videos-grade">
+                        <div class="vazio-msg">Nenhum vídeo cadastrado ainda. Adicione o seu primeiro vídeo acima!</div>
+                    </div>
+                </div>
             </section>
         </main>
     </div>
@@ -82,78 +95,73 @@
             window.location.href = "index.html";
         }
 
-        // Elementos
-        const form = document.getElementById('videoForm');
-        const container = document.getElementById('videosContainer');
-        const botoesFiltro = document.querySelectorAll('.btn-filter');
-        let listaVideos = JSON.parse(localStorage.getItem('meusVideos')) || [];
+        const form = document.getElementById('novoVideoForm');
+        const grade = document.getElementById('gradeVideos');
+        const botoesFiltro = document.querySelectorAll('.btn-filtro');
+        let bancoVideos = JSON.parse(localStorage.getItem('videosCadastrados')) || [];
 
-        // Salvar novo vídeo
+        // Adicionar vídeo
         form.addEventListener('submit', e => {
             e.preventDefault();
-            const novoVideo = {
+            const novo = {
                 id: Date.now(),
-                titulo: document.getElementById('titulo').value,
-                categoria: document.getElementById('categoria').value,
-                link: document.getElementById('link').value,
-                descricao: document.getElementById('descricao').value
+                titulo: document.getElementById('tituloVid').value,
+                categoria: document.getElementById('categoriaVid').value,
+                link: document.getElementById('linkVid').value,
+                descricao: document.getElementById('descricaoVid').value || "Sem descrição disponível."
             };
-            listaVideos.push(novoVideo);
+            bancoVideos.push(novo);
             salvarDados();
-            renderizarVideos('todos');
+            renderizar("todos");
             form.reset();
         });
 
-        // Filtrar por categoria
+        // Filtrar
         botoesFiltro.forEach(btn => {
             btn.addEventListener('click', () => {
                 botoesFiltro.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                renderizarVideos(btn.dataset.categoria);
+                renderizar(btn.dataset.filtro);
             });
         });
 
-        // Renderizar na tela
-        function renderizarVideos(filtro) {
-            container.innerHTML = '';
-            const dadosFiltrados = filtro === 'todos' ? listaVideos : listaVideos.filter(v => v.categoria === filtro);
+        // Renderizar tela
+        function renderizar(filtro) {
+            grade.innerHTML = "";
+            const listaFiltrada = filtro === "todos" ? bancoVideos : bancoVideos.filter(v => v.categoria === filtro);
 
-            if (dadosFiltrados.length === 0) {
-                container.innerHTML = `<div class="empty-message">Nenhum vídeo encontrado nessa categoria.</div>`;
+            if (listaFiltrada.length === 0) {
+                grade.innerHTML = `<div class="vazio-msg">Nenhum vídeo encontrado nessa categoria.</div>`;
                 return;
             }
 
-            dadosFiltrados.forEach(video => {
+            listaFiltrada.forEach(vid => {
                 const card = document.createElement('div');
-                card.className = 'video-card';
-                card.setAttribute('data-cat', video.categoria);
+                card.className = 'video-card-item';
                 card.innerHTML = `
-                    <div class="card-header">
-                        <span class="categoria-tag ${video.categoria}">${formatarCategoria(video.categoria)}</span>
-                        <h3>${video.titulo}</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>${video.descricao || "Sem descrição."}</p>
-                        <a href="${video.link}" target="_blank" class="btn btn-primary btn-sm">Assistir no YouTube</a>
-                    </div>
+                    <div class="card-categoria-tag cat-${vid.categoria}">${traduzirCategoria(vid.categoria)}</div>
+                    <h4 class="card-titulo">${vid.titulo}</h4>
+                    <p class="card-desc">${vid.descricao}</p>
+                    <a href="${vid.link}" target="_blank" class="btn btn-primary btn-sm">Assistir no YouTube</a>
                 `;
-                container.appendChild(card);
+                grade.appendChild(card);
             });
         }
 
-        function formatarCategoria(cat) {
+        function traduzirCategoria(cat) {
             const nomes = {
-                tutoriais: "Tutoriais", jogos: "Jogos", vlogs: "Vlogs", curiosidades: "Curiosidades", analises: "Análises"
+                tutoriais: "Tutoriais", jogos: "Jogos", vlogs: "Vlogs",
+                curiosidades: "Curiosidades", analises: "Análises", entretenimento: "Entretenimento"
             };
             return nomes[cat] || cat;
         }
 
         function salvarDados() {
-            localStorage.setItem('meusVideos', JSON.stringify(listaVideos));
+            localStorage.setItem('videosCadastrados', JSON.stringify(bancoVideos));
         }
 
         // Inicializar
-        renderizarVideos('todos');
+        renderizar("todos");
     </script>
 </body>
 </html>
