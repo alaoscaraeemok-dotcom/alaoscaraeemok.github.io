@@ -142,7 +142,7 @@
         }
 
         // ==============================================
-        // 🔥 SEUS DADOS JÁ ESTÃO AQUI, NÃO MUDE NADA! 🔥
+        // 🔥 SEUS DADOS DO FIREBASE (JÁ CONFIGURADOS) 🔥
         // ==============================================
         const firebaseConfig = {
             apiKey: "AIzaSyBrJNVLqLqzrnRBYXrQwS-PGIzwOnScKlS",
@@ -178,7 +178,7 @@
         }
 
 
-        // SALVAR VÍDEO NO BANCO
+        // SALVAR VÍDEO NO BANCO (já com views e likes zerados)
         form.addEventListener('submit', e => {
             e.preventDefault();
             
@@ -187,7 +187,9 @@
                 categoria: document.getElementById('categoria').value,
                 link: document.getElementById('link').value,
                 descricao: document.getElementById('descricao').value || "Sem descrição disponível.",
-                thumbnail: pegarThumbnailDoLink(document.getElementById('link').value)
+                thumbnail: pegarThumbnailDoLink(document.getElementById('link').value),
+                visualizacoes: 0, // Começa com 0 visualizações
+                curtidas: 0      // Começa com 0 curtidas
             };
             
             // Envia os dados para o Firebase
@@ -217,7 +219,7 @@
         });
 
 
-        // PEGAR DADOS DO BANCO SEMPRE QUE ALGUÉM ADICIONAR
+        // PEGAR DADOS DO BANCO SEMPRE QUE ALGUÉM ADICIONAR/EXCLUIR
         referenciaVideos.on('value', (snapshot) => {
             bancoVideos = [];
             snapshot.forEach(item => {
@@ -227,17 +229,16 @@
         });
 
 
-        // MOSTRAR OS VÍDEOS NA TELA
-        function renderizarLista(filtro) {
-            listaContainer.innerHTML = "";
-            const listaFiltrada = filtro === "todos" ? bancoVideos : bancoVideos.filter(v => v.categoria === filtro);
-
-            if (listaFiltrada.length === 0) {
-                listaContainer.innerHTML = `<div class="col-span-full text-center py-10 text-gray-500 italic">Nenhum vídeo encontrado nessa categoria.</div>`;
-                return;
+        // EXCLUIR VÍDEO
+        function excluirVideo(id) {
+            if (confirm('Tem certeza que deseja excluir esse vídeo? Essa ação não pode ser desfeita!')) {
+                db.ref(`videos/${id}`).remove()
+                .then(() => alert('🗑️ Vídeo excluído com sucesso!'))
+                .catch(erro => alert('Erro ao excluir: ' + erro));
             }
+        }
 
-            listaFiltrada.forEach(vid => {
-                const card = document.createElement('div');
-                card.className = 'bg-preto-600/40 bordas-roxas rounded-lg overflow-hidden hover:border-roxo-400/40 hover:shadow-md hover:shadow-roxo-900/10 transition-all cursor-pointer';
-                card.onclick = () => window.open(vid.link, '_
+
+        // ADICIONAR CURTIDA
+        function adicionarCurtida(id, likesAtuais) {
+            db.ref(`videos/${id}/curtidas`).set(likesAtu
