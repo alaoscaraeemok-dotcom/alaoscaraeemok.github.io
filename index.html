@@ -7,24 +7,29 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="login-container">
-        <h2>Acesso ao Sistema</h2>
-        <form id="loginForm">
-            <div class="form-group">
-                <label for="usuario">Usuário:</label>
-                <input type="text" id="usuario" required placeholder="Digite seu usuário">
-            </div>
-            <div class="form-group">
-                <label for="senha">Senha:</label>
-                <input type="password" id="senha" required placeholder="Digite sua senha">
-            </div>
-            <button type="submit" class="btn">Entrar</button>
-        </form>
-        <p id="mensagemErro" class="erro"></p>
+    <div class="pagina-login">
+        <div class="caixa-login">
+            <h2>🔒 Acesso Exclusivo</h2>
+            <p class="subtitulo">Entre para conferir tudo sobre o nosso canal</p>
+            
+            <form id="loginForm">
+                <div class="grupo-campo">
+                    <label for="usuario">Usuário</label>
+                    <input type="text" id="usuario" required placeholder="Digite seu nome de usuário">
+                </div>
+
+                <div class="grupo-campo">
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" required placeholder="Digite sua senha">
+                </div>
+
+                <button type="submit" class="btn btn-principal">Entrar</button>
+                <p id="mensagemErro" class="mensagem-erro"></p>
+            </form>
+        </div>
     </div>
 
     <script>
-        // Dados de acesso (você pode alterar esses valores)
         const usuarioCorreto = "admin";
         const senhaCorreta = "123456";
 
@@ -32,18 +37,15 @@
         const mensagemErro = document.getElementById('mensagemErro');
 
         form.addEventListener('submit', function(e) {
-            e.preventDefault(); // Impede o recarregamento da página
-
+            e.preventDefault();
             const usuarioDigitado = document.getElementById('usuario').value;
             const senhaDigitada = document.getElementById('senha').value;
 
             if (usuarioDigitado === usuarioCorreto && senhaDigitada === senhaCorreta) {
-                // Salva o status de login no navegador
                 localStorage.setItem('logado', "true");
-                // Redireciona para o menu principal
                 window.location.href = "menu.html";
             } else {
-                mensagemErro.textContent = "Usuário ou senha incorretos!";
+                mensagemErro.textContent = "Usuário ou senha incorretos. Tente novamente.";
             }
         });
     </script>
