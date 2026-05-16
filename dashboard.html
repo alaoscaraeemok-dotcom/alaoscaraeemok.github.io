@@ -155,14 +155,14 @@
         }
 
 
-        // Adicionar novo vídeo (CORRIGIDO)
+        // Adicionar novo vídeo
         form.addEventListener('submit', e => {
             e.preventDefault();
             
             const novo = {
                 id: Date.now(),
                 titulo: document.getElementById('titulo').value,
-                categoria: document.getElementById('categoria').value, // <- CORRIGIDO AQUI
+                categoria: document.getElementById('categoria').value,
                 link: document.getElementById('link').value,
                 descricao: document.getElementById('descricao').value || "Sem descrição disponível.",
                 thumbnail: pegarThumbnailDoLink(document.getElementById('link').value)
@@ -175,7 +175,7 @@
         });
 
 
-        // Filtrar por categoria (CORRIGIDO)
+        // Filtrar por categoria
         botoesFiltro.forEach(btn => {
             btn.addEventListener('click', () => {
                 // Reseta estilo de todos
@@ -192,7 +192,17 @@
         });
 
 
-        // Renderizar lista (CORRIGIDO para exibir corretamente)
+        // Função para excluir vídeo
+        function excluirVideo(id) {
+            if (confirm('Tem certeza que deseja remover este vídeo do banco de dados? Essa ação não pode ser desfeita!')) {
+                bancoVideos = bancoVideos.filter(video => video.id !== id);
+                salvarDados();
+                renderizarLista(document.querySelector('.filtro-btn.active').dataset.filtro);
+            }
+        }
+
+
+        // Renderizar lista
         function renderizarLista(filtro) {
             listaContainer.innerHTML = "";
             const listaFiltrada = filtro === "todos" ? bancoVideos : bancoVideos.filter(v => v.categoria === filtro);
@@ -204,16 +214,19 @@
 
             listaFiltrada.forEach(vid => {
                 const card = document.createElement('div');
-                card.className = 'bg-preto-600/40 bordas-roxas rounded-lg overflow-hidden hover:border-roxo-400/40 hover:shadow-md hover:shadow-roxo-900/10 transition-all cursor-pointer';
-                card.onclick = () => window.open(vid.link, '_blank');
+                card.className = 'bg-preto-600/40 bordas-roxas rounded-lg overflow-hidden hover:border-roxo-400/40 hover:shadow-md hover:shadow-roxo-900/10 transition-all relative';
 
                 card.innerHTML = `
                     <div class="w-full h-[140px] overflow-hidden">
                         <img src="${vid.thumbnail}" alt="Capa do vídeo" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
                     </div>
+                    <!-- Botão de excluir -->
+                    <button onclick="excluirVideo(${vid.id})" class="absolute top-2 right-2 bg-red-600/80 hover:bg-red-700/90 text-white w-8 h-8 flex items-center justify-center rounded-full transition-all" title="Excluir vídeo">
+                        <i class="fa fa-trash-o"></i>
+                    </button>
                     <div class="p-4">
                         <span class="inline-block px-2 py-0.5 bg-roxo-800/50 text-roxo-300 text-[10px] font-semibold uppercase rounded mb-2">${traduzirCategoria(vid.categoria)}</span>
-                        <h4 class="text-sm font-medium text-white line-clamp-2">${vid.titulo}</h4>
+                        <h4 class="text-sm font-medium text-white line-clamp-2 cursor-pointer" onclick="window.open('${vid.link}', '_blank')">${vid.titulo}</h4>
                     </div>
                 `;
                 listaContainer.appendChild(card);
@@ -234,13 +247,3 @@
         }
 
         // Logout
-        document.getElementById('btnSair').addEventListener('click', () => {
-            localStorage.removeItem('logado');
-            window.location.href = "index.html";
-        });
-
-        // Carrega os vídeos ao abrir a página
-        renderizarLista('todos');
-    </script>
-</body>
-</html>
