@@ -3,60 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Principal | Canal</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Menu Principal | Sistema de Vídeos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        preto: {
+                            900: '#000000', 800: '#050505', 700: '#0F0F0F', 600: '#1A1A1A', 500: '#242424',
+                        },
+                        roxo: {
+                            900: '#2D0C5E', 800: '#4B0082', 700: '#5A189A', 600: '#7B2CBF', 500: '#9D4EDD',
+                            400: '#C77DFF', 300: '#E0AAFF',
+                        }
+                    },
+                    fontFamily: { inter: ['Inter', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow { text-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+            .bg-gradient-roxo { background: linear-gradient(135deg, #000000 0%, #4B0082 100%); }
+            .bg-gradient-card { background: linear-gradient(145deg, #1A1A1A 0%, #0F0F0F 100%); }
+            .bordas-roxas { border: 1px solid rgba(157, 78, 221, 0.15); }
+            .sombra-hover { box-shadow: 0 8px 25px rgba(123, 44, 191, 0.15); }
+            .transition-all-custom { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
-<body>
-    <div class="bg-flower flower-top-left"></div>
-    <div class="bg-flower flower-bottom-right"></div>
+<body class="bg-preto-800 font-inter text-white min-h-screen flex flex-col relative overflow-hidden">
 
-    <div class="page-wrapper">
-        <header class="top-bar">
-            <div class="top-bar-content">
-                <h2>SOBRE O NOSSO CANAL</h2>
-                <a href="index.html" class="btn btn-danger">Sair</a>
-            </div>
-        </header>
+    <!-- Elementos decorativos de fundo -->
+    <div class="absolute w-[600px] h-[600px] opacity-[0.03] -top-32 -right-32 rounded-full bg-roxo-500 blur-3xl"></div>
+    <div class="absolute w-[600px] h-[600px] opacity-[0.03] -bottom-32 -left-32 rounded-full bg-roxo-500 blur-3xl"></div>
 
-        <main class="main-content">
-            <section class="card-container">
-                <div class="card-header">
-                    <h3>📺 Informações do Canal</h3>
+    <!-- Cabeçalho -->
+    <header class="relative z-10 bg-gradient-roxo shadow-[0_4px_20px_rgba(0,0,0,0.4)] border-b border-roxo-700/20">
+        <div class="container mx-auto px-6 py-5 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-roxo-500/20 flex items-center justify-center">
+                    <i class="fa fa-th-large text-roxo-400 text-lg"></i>
                 </div>
-                <div class="card-body">
-                    <div class="info-canal-conteudo">
-                        <p class="texto-destaque">Bem-vindo! Aqui produzimos conteúdo de alta qualidade, com dedicação e carinho para todos os nossos inscritos.</p>
-                        
-                        <ul class="lista-info">
-                            <li><span>✅</span> Mais de 100.000 inscritos</li>
-                            <li><span>✅</span> Vídeos novos toda terça e sexta</li>
-                            <li><span>✅</span> Conteúdo exclusivo e bem pesquisado</li>
-                            <li><span>✅</span> Uma comunidade incrível e engajada</li>
-                        </ul>
-
-                        <a href="https://youtube.com" target="_blank" class="btn btn-primary btn-lg">Acessar Canal no YouTube</a>
-                    </div>
-                </div>
-            </section>
-
-            <div class="grid-botoes-acesso">
-                <section class="card-container card-acesso">
-                    <div class="card-body centro">
-                        <h3>⚙️ Painel de Gerenciamento</h3>
-                        <p>Adicione, edite e organize todos os seus vídeos por categorias de forma fácil e rápida.</p>
-                        <a href="dashboard.html" class="btn btn-primary btn-lg">Acessar Dashboard</a>
-                    </div>
-                </section>
-
-                <section class="card-container card-acesso">
-                    <div class="card-body centro">
-                        <h3>💡 Informações e Curiosidades</h3>
-                        <p>Conheça mais detalhes, bastidores e fatos interessantes sobre a nossa trajetória e conteúdo.</p>
-                        <a href="curiosidades.html" class="btn btn-primary btn-lg">Ver Curiosidades</a>
-                    </div>
-                </section>
+                <h1 class="text-[22px] font-bold tracking-wider text-shadow">MENU PRINCIPAL</h1>
             </div>
-        </main>
-    </div>
+            <button id="btnSair" class="bg-red-900/60 hover:bg-red-800/80 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-all-custom flex items-center gap-2 hover:-translate-y-0.5">
+                <i class="fa fa-sign-out"></i>
+                Sair
+            </button>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="flex-grow container mx-auto px-4 py-16 relative z-10">
+        <div class="max-w-4xl mx-auto text-center mb-16">
+            <h2 class="text-[32px] md:text-[42px] font-bold text-white mb-3 text-shadow">Bem-vindo ao Sistema</h2>
+            <p class="text-gray-400 text-lg">Gerencie todos os seus vídeos, categorias e configurações em um só lugar</p>
+        </div>
+
+        <!-- Grade de Opções -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- Opção 1: Gerenciar Vídeos -->
+            <a href="dashboard.html" class="group bg-preto-700/70 backdrop-blur-sm rounded-2xl bordas-roxas p-8 hover:bordas-roxas hover:border-roxo-500/40 sombra-hover transition-all-custom hover:-translate-y-2">
+                <div class="w-14 h-14 rounded-xl bg-roxo-500/20 flex items-center justify-center mb-6 group-hover:bg-roxo-500/30 transition-all-custom">
+                    <i class="fa fa-film text-roxo-400 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-white mb-2">Gerenciar Vídeos</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Adicione, edite, exclua e organize todos os vídeos do banco de dados, com controle total de categorias e informações.</p>
+                <div class="mt-6 flex items-center text-roxo-400 text-sm font-medium">
+                    <span>Acessar</span>
+                    <i class="fa fa-arrow-right ml-2 group-hover:ml-3 transition-all-custom"></i>
+                </div>
+            </a>
+
+            <!-- Opção 2: Categorias -->
+            <a href="#" class="group bg-preto-700/70 backdrop-blur-sm rounded-2xl bordas-roxas p-8 hover:bordas-roxas hover:border-roxo-500/40 sombra-hover transition-all-custom hover:-translate-y-2">
+                <div class="w-14 h-14 rounded-xl bg-roxo-500/20 flex items-center justify-center mb-6 group-hover:bg-roxo-500/30 transition-all-custom">
+                    <i class="fa fa-th-large text-roxo-400 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-white mb-2">Categorias</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Crie e edite categorias personalizadas para organizar melhor todo o conteúdo da sua plataforma.</p>
+                <div class="mt-6 flex items-center text-roxo-400 text-sm font-medium">
+                    <span>Acessar</span>
+                    <i class="fa fa-arrow-right ml-2 group-hover:ml-3 transition-all-custom"></i>
+                </div>
+            </a>
+
+            <!-- Opção 3: Estatísticas -->
+            <a href="#" class="group bg-preto-700/70 backdrop-blur-sm rounded-2xl bordas-roxas p-8 hover:bordas-roxas hover:border-roxo-500/40 sombra-hover transition-all-custom hover:-translate-y-2">
+                <div class="w-14 h-14 rounded-xl bg-roxo-500/20 flex items-center justify-center mb-6 group-hover:bg-roxo-500/30 transition-all-custom">
+                    <i class="fa fa-bar-chart text-roxo-400 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-white mb-2">Estatísticas</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Visualize dados de acesso, visualizações, engajamento e desempenho de todo o conteúdo cadastrado.</p>
+                <div class="mt-6 flex items-center text-roxo-400 text-sm font-medium">
+                    <span>Acessar</span>
+                    <i class="fa fa-arrow-right ml-2 group-hover:ml-3 transition-all-custom"></i>
+                </div>
+            </a>
+
+            <!-- Opção 4: Configurações -->
+            <a href="#" class="group bg-preto-700/70 backdrop-blur-sm rounded-2xl bordas-roxas p-8 hover:bordas-roxas hover:border-roxo-500/40 sombra-hover transition-all-custom hover:-translate-y-2">
+                <div class="w-14 h-14 rounded-xl bg-roxo-500/20 flex items-center justify-center mb-6 group-hover:bg-roxo-500/30 transition-all-custom">
+                    <i class="fa fa-cog text-roxo-400 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-white mb-2">Configurações</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Ajuste preferências do sistema, dados da conta, segurança e aparência da plataforma.</p>
+                <div class="mt-6 flex items-center text-roxo-400 text-sm font-medium">
+                    <span>Acessar</span>
+                    <i class="fa fa-arrow-right ml-2 group-hover:ml-3 transition-all-custom"></i>
+                </div>
+            </a>
+
+            <!-- Opção 5: Ajuda e Suporte -->
+            <a href="#" class="group bg-preto-700/70 backdrop-blur-sm rounded-2xl bordas-roxas p-8 hover:bordas-roxas hover:border-roxo-500/40 sombra-hover transition-all-custom hover:-translate-y-2">
+                <div class="w-14 h-14 rounded-xl bg-roxo-500/20 flex items-center justify-center mb-6 group-hover:bg-roxo-500/30 transition-all-custom">
+                    <i class="fa fa-question-circle text-roxo-400 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-white mb-2">Ajuda e Suporte</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Central de ajuda, tutoriais, documentação e contato com a equipe de suporte técnico.</p>
+                <div class="mt-6 flex items-center text-roxo-400 text-sm font-medium">
+                    <span>Acessar</span>
+                    <i class="fa fa-arrow-right ml-2 group-hover:ml-3 transition-all-custom"></i>
+                </div>
+            </a>
+
+            <!-- Opção 6: Sobre o Sistema -->
+            <a href="#" class="group bg-preto-700/70 backdrop-blur-sm rounded-2xl bordas-roxas p-8 hover:bordas-roxas hover:border-roxo-500/40 sombra-hover transition-all-custom hover:-translate-y-2">
+                <div class="w-14 h-14 rounded-xl bg-roxo-500/20 flex items-center justify-center mb-6 group-hover:bg-roxo-500/30 transition-all-custom">
+                    <i class="fa fa-info-circle text-roxo-400 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-white mb-2">Sobre o Sistema</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Informações sobre a versão, licenças, desenvolvedores e detalhes técnicos da plataforma.</p>
+                <div class="mt-6 flex items-center text-roxo-400 text-sm font-medium">
+                    <span>Acessar</span>
+                    <i class="fa fa-arrow-right ml-2 group-hover:ml-3 transition-all-custom"></i>
+                </div>
+            </a>
+
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="relative z-10 border-t border-preto-600 py-6 mt-12">
+        <div class="container mx-auto px-4 text-center text-gray-500 text-xs">
+            Sistema de Gerenciamento de Vídeos © 2026 - Todos os direitos reservados
+        </div>
+    </footer>
+
+    <script>
+        // Verifica se está logado
+        if (!localStorage.getItem("logado")) {
+            window.location.href = "index.html";
+        }
+
+        // Função de sair
+        document.getElementById('btnSair').addEventListener('click', () => {
+            localStorage.removeItem('logado');
+            window.location.href = "index.html";
+        });
+    </script>
 </body>
 </html>
