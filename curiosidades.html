@@ -8,36 +8,37 @@
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Informações e Curiosidades</h1>
-            <a href="menu.html" class="btn-sair">Voltar ao Menu</a>
+        <header class="cabecalho">
+            <h1>💡 Informações e Curiosidades</h1>
+            <a href="menu.html" class="btn btn-sair">Voltar ao Menu</a>
         </header>
 
-        <div class="conteudo">
-            <div class="curiosidade-item">
-                <h3>💡 Curiosidade 1</h3>
-                <p>Esse canal foi criado em [ano] com o objetivo de compartilhar conhecimento e entretenimento para todos os públicos.</p>
-            </div>
+        <main class="conteudo">
+            <div class="grade-curiosidades">
+                <div class="cartao-curiosidade">
+                    <h3>📅 Quando começou?</h3>
+                    <p>O canal foi criado em [ano] com o objetivo de compartilhar conhecimento e entretenimento para todos os públicos, crescendo cada dia mais graças a vocês.</p>
+                </div>
 
-            <div class="curiosidade-item">
-                <h3>💡 Curiosidade 2</h3>
-                <p>O vídeo mais visto do canal tem mais de [número] visualizações e fala sobre [assunto do vídeo].</p>
-            </div>
+                <div class="cartao-curiosidade">
+                    <h3>🎬 Vídeo mais famoso</h3>
+                    <p>O vídeo mais visto do canal tem mais de [número] visualizações e fala sobre [assunto do vídeo], sendo o conteúdo que mais marcou a nossa história até hoje.</p>
+                </div>
 
-            <div class="curiosidade-item">
-                <h3>💡 Curiosidade 3</h3>
-                <p>Todos os roteiros dos vídeos são feitos com muito cuidado e pesquisa para trazer o melhor conteúdo para você.</p>
-            </div>
+                <div class="cartao-curiosidade">
+                    <h3>✍️ Bastidores</h3>
+                    <p>Todos os roteiros, gravações e edições são feitos com muito cuidado e pesquisa, para garantir que você tenha a melhor experiência possível ao assistir.</p>
+                </div>
 
-            <div class="curiosidade-item">
-                <h3>📌 Informação Extra</h3>
-                <p>Além do YouTube, também estamos presentes em outras redes sociais como Instagram e TikTok, siga-nos para não perder nada!</p>
+                <div class="cartao-curiosidade">
+                    <h3>🌐 Nossas Redes</h3>
+                    <p>Além do YouTube, também estamos presentes no Instagram e TikTok! Lá compartilhamos conteúdos extras, novidades e o dia a dia da nossa equipe.</p>
+                </div>
             </div>
-        </div>
+        </main>
     </div>
 
     <script>
-        // Verifica se o usuário está logado
         if (localStorage.getItem('logado') !== "true") {
             window.location.href = "index.html";
         }
