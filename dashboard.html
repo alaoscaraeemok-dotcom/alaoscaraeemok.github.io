@@ -102,7 +102,7 @@
         </section>
 
 
-        <!-- SEÇÃO: VÍDEOS CADASTRADOS - NOVA PARTE ADICIONADA -->
+        <!-- SEÇÃO: VÍDEOS SALVOS -->
         <section>
             <div class="bg-preto-700/70 backdrop-blur-sm rounded-2xl bordas-roxas shadow-[0_8px_32px_rgba(0,0,0,0.3)] overflow-hidden">
                 <div class="bg-preto-600/50 border-b bordas-roxas px-8 py-5 flex flex-wrap justify-between items-center gap-4">
@@ -122,7 +122,7 @@
 
                 <div class="p-8">
                     <div id="listaVideos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <!-- Os vídeos vão aparecer aqui via JavaScript -->
+                        <!-- Os vídeos aparecem aqui -->
                         <div class="col-span-full text-center py-10 text-gray-500 italic">Nenhum vídeo cadastrado ainda.</div>
                     </div>
                 </div>
@@ -143,7 +143,7 @@
         let bancoVideos = JSON.parse(localStorage.getItem('videosCadastrados')) || [];
 
 
-        // Função para extrair ID do YouTube e pegar a Thumbnail (tamanho médio)
+        // Função para pegar a Thumbnail
         function pegarThumbnailDoLink(link) {
             let id = '';
             if (link.includes('youtu.be/')) {
@@ -151,23 +151,21 @@
             } else if (link.includes('youtube.com/watch')) {
                 id = new URL(link).searchParams.get('v');
             }
-            // Usamos versão média da imagem, não muito grande
             return id ? `https://img.youtube.com/vi/${id}/mqdefault.jpg` : 'https://via.placeholder.com/320x180/141414/9D4EDD?text=Sem+Capa';
         }
 
 
-        // Adicionar novo vídeo
+        // Adicionar novo vídeo (CORRIGIDO)
         form.addEventListener('submit', e => {
             e.preventDefault();
             
-            const link = document.getElementById('link').value;
             const novo = {
                 id: Date.now(),
                 titulo: document.getElementById('titulo').value,
-                categoria: document.getElementById('categoriaVid')?.value || document.getElementById('categoria').value,
-                link: link,
+                categoria: document.getElementById('categoria').value, // <- CORRIGIDO AQUI
+                link: document.getElementById('link').value,
                 descricao: document.getElementById('descricao').value || "Sem descrição disponível.",
-                thumbnail: pegarThumbnailDoLink(link)
+                thumbnail: pegarThumbnailDoLink(document.getElementById('link').value)
             };
             
             bancoVideos.push(novo);
@@ -177,19 +175,24 @@
         });
 
 
-        // Filtrar por categoria
+        // Filtrar por categoria (CORRIGIDO)
         botoesFiltro.forEach(btn => {
             btn.addEventListener('click', () => {
-                botoesFiltro.forEach(b => b.classList.remove('active', 'bg-roxo-700/40', 'text-white'));
-                botoesFiltro.forEach(b => b.classList.add('bg-preto-600/60', 'text-gray-300'));
+                // Reseta estilo de todos
+                botoesFiltro.forEach(b => {
+                    b.classList.remove('active', 'bg-roxo-700/40', 'text-white');
+                    b.classList.add('bg-preto-600/60', 'text-gray-300');
+                });
+                // Aplica estilo no clicado
                 btn.classList.add('active', 'bg-roxo-700/40', 'text-white');
                 btn.classList.remove('bg-preto-600/60', 'text-gray-300');
+                
                 renderizarLista(btn.dataset.filtro);
             });
         });
 
 
-        // Renderizar lista com Thumbnail e redirecionamento
+        // Renderizar lista (CORRIGIDO para exibir corretamente)
         function renderizarLista(filtro) {
             listaContainer.innerHTML = "";
             const listaFiltrada = filtro === "todos" ? bancoVideos : bancoVideos.filter(v => v.categoria === filtro);
@@ -202,12 +205,9 @@
             listaFiltrada.forEach(vid => {
                 const card = document.createElement('div');
                 card.className = 'bg-preto-600/40 bordas-roxas rounded-lg overflow-hidden hover:border-roxo-400/40 hover:shadow-md hover:shadow-roxo-900/10 transition-all cursor-pointer';
-                
-                // Ao clicar em qualquer lugar do card, abre o vídeo
                 card.onclick = () => window.open(vid.link, '_blank');
 
                 card.innerHTML = `
-                    <!-- Thumbnail tamanho moderado (não exagerado) -->
                     <div class="w-full h-[140px] overflow-hidden">
                         <img src="${vid.thumbnail}" alt="Capa do vídeo" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
                     </div>
@@ -239,4 +239,8 @@
             window.location.href = "index.html";
         });
 
-        // Inicializar lista ao carregar
+        // Carrega os vídeos ao abrir a página
+        renderizarLista('todos');
+    </script>
+</body>
+</html>
