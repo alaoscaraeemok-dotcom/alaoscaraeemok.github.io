@@ -193,7 +193,7 @@
         });
 
 
-        // FILTROS FUNCIONANDO
+        // FILTROS FUNCIONANDO AO CLICAR
         botoesFiltro.forEach(btn => {
             btn.addEventListener('click', () => {
                 botoesFiltro.forEach(b => {
@@ -208,7 +208,7 @@
         });
 
 
-        // CARREGAR DADOS DO BANCO SEMPRE ATUALIZADO
+        // CARREGAR DADOS DO BANCO E ATUALIZAR SEMPRE
         referenciaVideos.on('value', (snapshot) => {
             bancoVideos = [];
             snapshot.forEach(item => {
@@ -243,5 +243,4 @@
         // TRADUZIR NOME DA CATEGORIA
         function traduzirCategoria(cat) {
             const nomes = {
-                tutoriais: "Tutoriais", jogos: "Jogos", vlogs: "Vlogs",
-                curiosidades: "Curiosidades", analises: "Anál
+                tutoriais: "Tutoria
