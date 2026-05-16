@@ -1,154 +1,229 @@
+/* Reset e configurações gerais */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
 body {
-    background-color: #f0f2f5;
+    background-color: #0F0F0F; /* Preto escuro */
+    color: #FFFFFF; /* Texto branco padrão */
     line-height: 1.6;
 }
 
-/* Estilo da página de login */
-.login-container {
-    max-width: 400px;
-    margin: 100px auto;
-    background: white;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+/* ------------------------------ */
+/* Página de Login */
+/* ------------------------------ */
+.pagina-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #000000 0%, #2D0C5E 100%); /* Preto para roxo escuro */
 }
 
-.login-container h2 {
+.caixa-login {
+    background-color: #FFFFFF;
+    color: #0F0F0F;
+    padding: 40px 35px;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(138, 43, 226, 0.3); /* Sombra roxa */
+    width: 100%;
+    max-width: 420px;
     text-align: center;
-    color: #333;
+}
+
+.caixa-login h2 {
+    color: #2D0C5E; /* Roxo principal */
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.subtitulo {
+    color: #555555;
+    font-size: 15px;
+    margin-bottom: 25px;
+}
+
+.grupo-campo {
+    text-align: left;
     margin-bottom: 20px;
 }
 
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-group label {
+.grupo-campo label {
     display: block;
-    margin-bottom: 5px;
-    color: #555;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: #1A1A1A;
 }
 
-.form-group input {
+.grupo-campo input {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-}
-
-.erro {
-    color: #dc3545;
-    text-align: center;
-    margin-top: 10px;
-}
-
-/* Estilo das páginas internas */
-.container {
-    max-width: 900px;
-    margin: 30px auto;
-    background: white;
+    padding: 12px 15px;
+    border: 2px solid #E0E0E0;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    overflow: hidden;
+    font-size: 16px;
+    transition: all 0.3s ease;
 }
 
-header {
-    background-color: #ff0000;
-    color: white;
-    padding: 20px;
+.grupo-campo input:focus {
+    outline: none;
+    border-color: #8A2BE2; /* Roxo vibrante */
+    box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.15);
+}
+
+.mensagem-erro {
+    color: #D32F2F;
+    margin-top: 12px;
+    font-size: 14px;
+}
+
+/* ------------------------------ */
+/* Estrutura das Páginas Internas */
+/* ------------------------------ */
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+    background-color: #181818; /* Preto um pouco mais claro */
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    border: 1px solid #2E2E2E;
+}
+
+.cabecalho {
+    background: linear-gradient(90deg, #000000 0%, #4B0082 100%); /* Preto ao roxo */
+    padding: 25px 35px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+.cabecalho h1 {
+    color: #FFFFFF;
+    font-size: 22px;
+    font-weight: 600;
+}
+
 .conteudo {
-    padding: 30px;
+    padding: 35px;
 }
 
-.info-canal {
+/* ------------------------------ */
+/* Seções e Conteúdos */
+/* ------------------------------ */
+.secao-info {
+    background-color: #222222;
+    padding: 25px;
+    border-radius: 12px;
     margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #eee;
+    border-left: 4px solid #8A2BE2;
 }
 
-.info-canal h2 {
-    color: #333;
+.secao-info h2 {
+    color: #D8BFD8; /* Lilás claro */
     margin-bottom: 15px;
+    font-size: 20px;
 }
 
-.info-canal ul {
-    margin: 15px 0 15px 20px;
-    color: #555;
+.lista-dados {
+    margin: 18px 0 18px 22px;
+    color: #EEEEEE;
 }
 
-.curiosidade-item {
-    background-color: #f8f9fa;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 6px;
-    border-left: 4px solid #ff0000;
-}
-
-.curiosidade-item h3 {
-    color: #333;
+.lista-dados li {
     margin-bottom: 8px;
 }
 
-/* Botões */
-.btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #ff0000;
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background 0.3s;
+.secao-acao {
+    text-align: center;
+    padding: 20px;
+    background-color: #1E1E1E;
+    border-radius: 12px;
 }
 
-.btn:hover {
-    background-color: #cc0000;
+.secao-acao p {
+    font-size: 17px;
+    margin-bottom: 20px;
+    color: #CCCCCC;
+}
+
+/* Grade de Cartões para Curiosidades */
+.grade-curiosidades {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.cartao-curiosidade {
+    background-color: #292929;
+    padding: 22px;
+    border-radius: 12px;
+    border: 1px solid #444444;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.cartao-curiosidade:hover {
+    transform: translateY(-5px);
+    border-color: #8A2BE2;
+}
+
+.cartao-curiosidade h3 {
+    color: #BA55D3; /* Roxo médio */
+    margin-bottom: 10px;
+}
+
+.cartao-curiosidade p {
+    color: #E0E0E0;
+    font-size: 15px;
+}
+
+/* ------------------------------ */
+/* Botões */
+/* ------------------------------ */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-principal {
+    background-color: #8A2BE2;
+    color: #FFFFFF;
+}
+
+.btn-principal:hover {
+    background-color: #7020B0;
+    box-shadow: 0 4px 12px rgba(138, 43, 226, 0.3);
 }
 
 .btn-destaque {
-    background-color: #28a745;
-    font-size: 18px;
-    padding: 12px 25px;
+    background-color: #FFFFFF;
+    color: #4B0082;
+    font-weight: 600;
+    padding: 14px 28px;
+    font-size: 16px;
 }
 
 .btn-destaque:hover {
-    background-color: #218838;
+    background-color: #E6E6E6;
+    transform: scale(1.03);
 }
 
 .btn-sair {
-    color: white;
-    text-decoration: none;
-    padding: 8px 15px;
-    background-color: rgba(255,255,255,0.2);
-    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #FFFFFF;
+    padding: 8px 16px;
+    font-size: 14px;
 }
 
 .btn-sair:hover {
-    background-color: rgba(255,255,255,0.3);
-}
-
-.acao {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.acao p {
-    margin-bottom: 15px;
-    font-size: 17px;
-    color: #555;
+    background-color: rgba(255, 255, 255, 0.2);
 }
