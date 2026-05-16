@@ -7,48 +7,56 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="decor-flower flower-4"></div>
-    <div class="decor-flower flower-5"></div>
+    <div class="bg-flower flower-top-left"></div>
+    <div class="bg-flower flower-bottom-right"></div>
 
-    <div class="container">
-        <header class="header-bar">
-            <h1>SOBRE O NOSSO CANAL</h1>
-            <a href="index.html" class="btn btn-logout">SAIR</a>
+    <div class="page-wrapper">
+        <header class="top-bar">
+            <div class="top-bar-content">
+                <h2>SOBRE O NOSSO CANAL</h2>
+                <a href="index.html" class="btn btn-danger">Sair</a>
+            </div>
         </header>
 
-        <main class="content">
-            <section class="info-card">
-                <h2>📺 CANAL: [NOME DO SEU CANAL]</h2>
-                <p>Bem-vindo à área exclusiva! Aqui produzimos conteúdo de qualidade sobre <strong>[tema do canal]</strong>, com dedicação e carinho para todos os inscritos.</p>
+        <main class="main-content">
+            <section class="card-container">
+                <div class="card-header">
+                    <h3>📺 Informações do Canal</h3>
+                </div>
+                <div class="card-body">
+                    <div class="info-canal-conteudo">
+                        <p class="texto-destaque">Bem-vindo! Aqui produzimos conteúdo de alta qualidade, com dedicação e carinho para todos os nossos inscritos.</p>
+                        
+                        <ul class="lista-info">
+                            <li><span>✅</span> Mais de 100.000 inscritos</li>
+                            <li><span>✅</span> Vídeos novos toda terça e sexta</li>
+                            <li><span>✅</span> Conteúdo exclusivo e bem pesquisado</li>
+                            <li><span>✅</span> Uma comunidade incrível e engajada</li>
+                        </ul>
 
-                <ul class="features-list">
-                    <li>✅ Mais de [número] inscritos</li>
-                    <li>✅ Postagens semanais</li>
-                    <li>✅ Conteúdo original e exclusivo</li>
-                    <li>✅ Comunidade engajada</li>
-                </ul>
-
-                <a href="https://youtube.com/seucanal" target="_blank" class="btn btn-primary">ACESSAR CANAL</a>
+                        <a href="https://youtube.com" target="_blank" class="btn btn-primary btn-lg">Acessar Canal no YouTube</a>
+                    </div>
+                </div>
             </section>
 
-            <!-- NOVO BOTÃO PARA O DASHBOARD -->
-            <section class="action-box dashboard-link-box">
-                <h3>⚙️ Área de Gerenciamento</h3>
-                <p>Acesse o painel para cadastrar, organizar e visualizar todos os seus vídeos por categorias.</p>
-                <a href="dashboard.html" class="btn btn-destaque">IR PARA O DASHBOARD</a>
-            </section>
+            <div class="grid-botoes-acesso">
+                <section class="card-container card-acesso">
+                    <div class="card-body centro">
+                        <h3>⚙️ Painel de Gerenciamento</h3>
+                        <p>Adicione, edite e organize todos os seus vídeos por categorias de forma fácil e rápida.</p>
+                        <a href="dashboard.html" class="btn btn-primary btn-lg">Acessar Dashboard</a>
+                    </div>
+                </section>
 
-            <section class="action-box">
-                <p>Quer ver detalhes, curiosidades e informações completas?</p>
-                <a href="curiosidades.html" class="btn btn-highlight">VER MAIS INFORMAÇÕES</a>
-            </section>
+                <section class="card-container card-acesso">
+                    <div class="card-body centro">
+                        <h3>💡 Informações e Curiosidades</h3>
+                        <p>Conheça mais detalhes, bastidores e fatos interessantes sobre a nossa trajetória e conteúdo.</p>
+                        <a href="curiosidades.html" class="btn btn-primary btn-lg">Ver Curiosidades</a>
+                    </div>
+                </section>
+            </div>
         </main>
     </div>
-
-    <script>
-        if (!localStorage.getItem("logado")) {
-            window.location.href = "index.html";
-        }
-    </script>
 </body>
 </html>
