@@ -36,17 +36,15 @@
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- FIREBASE (BIBLIOTECAS DO BANCO DE DADOS) -->
+    <!-- FIREBASE -->
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js"></script>
 </head>
 <body class="bg-preto-800 font-inter text-white min-h-screen relative overflow-x-hidden">
 
-    <!-- Elementos Decorativos -->
     <div class="absolute w-[450px] h-[450px] opacity-[0.02] top-0 right-0" style="background: url('https://cdn-icons-png.flaticon.com/512/1296/1296888.png') no-repeat center/contain;"></div>
     <div class="absolute w-[450px] h-[450px] opacity-[0.02] bottom-0 left-0" style="background: url('https://cdn-icons-png.flaticon.com/512/3162/3162338.png') no-repeat center/contain;"></div>
 
-    <!-- Barra Superior -->
     <header class="sticky top-0 z-50 bg-gradient-roxo shadow-[0_4px_20px_rgba(0,0,0,0.4)] border-b border-roxo-700/20">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <h2 class="text-[20px] font-bold tracking-wider text-shadow">PAINEL DE GERENCIAMENTO</h2>
@@ -59,7 +57,7 @@
 
     <main class="container mx-auto px-4 py-8 relative z-10">
 
-        <!-- SEÇÃO: ADICIONAR VÍDEO -->
+        <!-- ADICIONAR VÍDEO -->
         <section class="mb-12">
             <div class="bg-preto-700/70 backdrop-blur-sm rounded-2xl bordas-roxas shadow-[0_8px_32px_rgba(0,0,0,0.3)] overflow-hidden">
                 <div class="bg-preto-600/50 border-b bordas-roxas px-8 py-5">
@@ -107,7 +105,7 @@
         </section>
 
 
-        <!-- SEÇÃO: VÍDEOS SALVOS -->
+        <!-- VÍDEOS SALVOS -->
         <section>
             <div class="bg-preto-700/70 backdrop-blur-sm rounded-2xl bordas-roxas shadow-[0_8px_32px_rgba(0,0,0,0.3)] overflow-hidden">
                 <div class="bg-preto-600/50 border-b bordas-roxas px-8 py-5 flex flex-wrap justify-between items-center gap-4">
@@ -136,14 +134,11 @@
     </main>
 
     <script>
-        // Verifica se está logado
         if (!localStorage.getItem("logado")) {
             window.location.href = "index.html";
         }
 
-        // ==============================================
-        // 🔥 SEUS DADOS DO FIREBASE (JÁ CONFIGURADOS) 🔥
-        // ==============================================
+        // SEUS DADOS DO FIREBASE
         const firebaseConfig = {
             apiKey: "AIzaSyBrJNVLqLqzrnRBYXrQwS-PGIzwOnScKlS",
             authDomain: "banco-de-dados-fcb5c.firebaseapp.com",
@@ -154,11 +149,9 @@
             appId: "1:248314616829:web:48582df73a78f84c171794"
         };
 
-        // Inicializa a conexão com o banco
         const app = firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
         const referenciaVideos = db.ref("videos");
-        // ==============================================
 
         const form = document.getElementById('formVideo');
         const listaContainer = document.getElementById('listaVideos');
@@ -166,7 +159,6 @@
         let bancoVideos = [];
 
 
-        // Função para pegar a imagem de capa do vídeo
         function pegarThumbnailDoLink(link) {
             let id = '';
             if (link.includes('youtu.be/')) {
@@ -178,7 +170,7 @@
         }
 
 
-        // SALVAR VÍDEO NO BANCO (já com views e likes zerados)
+        // SALVAR VÍDEO
         form.addEventListener('submit', e => {
             e.preventDefault();
             
@@ -188,23 +180,20 @@
                 link: document.getElementById('link').value,
                 descricao: document.getElementById('descricao').value || "Sem descrição disponível.",
                 thumbnail: pegarThumbnailDoLink(document.getElementById('link').value),
-                visualizacoes: 0, // Começa com 0 visualizações
-                curtidas: 0      // Começa com 0 curtidas
+                visualizacoes: 0,
+                curtidas: 0
             };
             
-            // Envia os dados para o Firebase
             referenciaVideos.push(novo)
             .then(() => {
                 form.reset();
-                alert('✅ Vídeo salvo com sucesso no banco de dados!');
+                alert('✅ Vídeo salvo com sucesso!');
             })
-            .catch(erro => {
-                alert('❌ Erro ao salvar: ' + erro.message);
-            });
+            .catch(erro => alert('❌ Erro: ' + erro.message));
         });
 
 
-        // FILTRAR VÍDEOS POR CATEGORIA
+        // FILTROS FUNCIONANDO 100%
         botoesFiltro.forEach(btn => {
             btn.addEventListener('click', () => {
                 botoesFiltro.forEach(b => {
@@ -219,7 +208,7 @@
         });
 
 
-        // PEGAR DADOS DO BANCO SEMPRE QUE ALGUÉM ADICIONAR/EXCLUIR
+        // CARREGAR DADOS DO BANCO
         referenciaVideos.on('value', (snapshot) => {
             bancoVideos = [];
             snapshot.forEach(item => {
@@ -231,14 +220,39 @@
 
         // EXCLUIR VÍDEO
         function excluirVideo(id) {
-            if (confirm('Tem certeza que deseja excluir esse vídeo? Essa ação não pode ser desfeita!')) {
+            if (confirm('Tem certeza que deseja excluir?')) {
                 db.ref(`videos/${id}`).remove()
-                .then(() => alert('🗑️ Vídeo excluído com sucesso!'))
-                .catch(erro => alert('Erro ao excluir: ' + erro));
+                .then(() => alert('🗑️ Excluído!'))
+                .catch(erro => alert('Erro: ' + erro));
             }
+        }
+
+
+        // ADICIONAR VISUALIZAÇÃO AO CLICAR
+        function adicionarVisualizacao(id, viewsAtuais) {
+            db.ref(`videos/${id}/visualizacoes`).set(viewsAtuais + 1);
         }
 
 
         // ADICIONAR CURTIDA
         function adicionarCurtida(id, likesAtuais) {
-            db.ref(`videos/${id}/curtidas`).set(likesAtu
+            db.ref(`videos/${id}/curtidas`).set(likesAtuais + 1);
+        }
+
+
+        // TRADUZIR CATEGORIA
+        function traduzirCategoria(cat) {
+            const nomes = {
+                tutoriais: "Tutoriais", jogos: "Jogos", vlogs: "Vlogs",
+                curiosidades: "Curiosidades", analises: "Análises"
+            };
+            return nomes[cat] || cat;
+        }
+
+
+        // RENDERIZAR LISTA CORRETAMENTE
+        function renderizarLista(filtro) {
+            listaContainer.innerHTML = "";
+            const listaFiltrada = filtro === "todos" ? bancoVideos : bancoVideos.filter(v => v.categoria === filtro);
+
+            if (
