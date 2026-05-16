@@ -3,213 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | Gerenciador de Vídeos</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <!-- Elementos decorativos sutis -->
-    <div class="bg-flower flower-top-right"></div>
-    <div class="bg-flower flower-bottom-left"></div>
-    <div class="bg-flower flower-middle-right"></div>
-
-    <div class="page-wrapper">
-        <!-- Barra Superior -->
-        <header class="top-bar">
-            <div class="top-bar-content">
-                <h2>PAINEL DE GERENCIAMENTO DE CONTEÚDO</h2>
-                <div class="top-bar-actions">
-                    <a href="menu.html" class="btn btn-outline">Menu Principal</a>
-                    <a href="index.html" class="btn btn-danger">Sair</a>
-                </div>
-            </div>
-        </header>
-
-        <!-- Conteúdo Principal -->
-        <main class="main-content">
-
-            <!-- SEÇÃO: ADICIONAR VÍDEO - MELHORADA E MAIS BONITA -->
-            <section class="card-container card-formulario">
-                <div class="card-header">
-                    <h3>ADICIONAR NOVO VÍDEO</h3>
-                    <p class="subtitulo-cabecalho">Preencha os dados abaixo para cadastrar no sistema</p>
-                </div>
-                <div class="card-body">
-                    <form id="novoVideoForm" class="form-layout-avancado">
-                        
-                        <!-- Linha 1: Título e Categoria -->
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Título do Vídeo</label>
-                                <input type="text" id="tituloVid" placeholder="Digite o título completo do vídeo" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Categoria</label>
-                                <select id="categoriaVid" required>
-                                    <option value="">Selecione uma categoria</option>
-                                    <option value="tutoriais">Tutoriais e Dicas</option>
-                                    <option value="jogos">Jogos e Gameplays</option>
-                                    <option value="vlogs">Vlogs e Diários</option>
-                                    <option value="curiosidades">Curiosidades e Fatos</option>
-                                    <option value="analises">Análises e Avaliações</option>
-                                    <option value="entretenimento">Entretenimento</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Linha 2: Link do YouTube -->
-                        <div class="form-row">
-                            <div class="form-group full-width">
-                                <label>Link do Vídeo (YouTube)</label>
-                                <input type="url" id="linkVid" placeholder="https://www.youtube.com/watch?v=CODIGO_DO_VIDEO" required>
-                                <small class="texto-ajuda">A capa do vídeo será carregada automaticamente a partir do link</small>
-                            </div>
-                        </div>
-
-                        <!-- Linha 3: Descrição -->
-                        <div class="form-row">
-                            <div class="form-group full-width">
-                                <label>Descrição Curta</label>
-                                <textarea id="descricaoVid" rows="4" placeholder="Escreva um resumo objetivo sobre o conteúdo do vídeo..."></textarea>
-                            </div>
-                        </div>
-
-                        <!-- Botão de Salvar -->
-                        <div class="form-botao-centro">
-                            <button type="submit" class="btn btn-primary btn-lg">Cadastrar Vídeo</button>
-                        </div>
-
-                    </form>
-                </div>
-            </section>
-
-
-            <!-- SEÇÃO: VISUALIZAR VÍDEOS - COM THUMBNAIL -->
-            <section class="card-container">
-                <div class="card-header">
-                    <div>
-                        <h3>BIBLIOTECA DE VÍDEOS</h3>
-                        <p class="subtitulo-cabecalho">Todos os vídeos cadastrados organizados por categoria</p>
-                    </div>
-                    <div class="filtro-categorias">
-                        <button class="btn-filtro active" data-filtro="todos">Todos</button>
-                        <button class="btn-filtro" data-filtro="tutoriais">Tutoriais</button>
-                        <button class="btn-filtro" data-filtro="jogos">Jogos</button>
-                        <button class="btn-filtro" data-filtro="vlogs">Vlogs</button>
-                        <button class="btn-filtro" data-filtro="curiosidades">Curiosidades</button>
-                        <button class="btn-filtro" data-filtro="analises">Análises</button>
-                    </div>
-                </div>
-
-                <div class="card-body">
-                    <div id="gradeVideos" class="videos-grade-com-capa">
-                        <div class="vazio-msg">Nenhum vídeo cadastrado ainda. Adicione o primeiro vídeo no formulário acima!</div>
-                    </div>
-                </div>
-            </section>
-
-        </main>
-    </div>
-
+    <title>Dashboard | Sistema de Vídeos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <script>
-        if (!localStorage.getItem("logado")) {
-            window.location.href = "index.html";
-        }
-
-        const form = document.getElementById('novoVideoForm');
-        const grade = document.getElementById('gradeVideos');
-        const botoesFiltro = document.querySelectorAll('.btn-filtro');
-        let bancoVideos = JSON.parse(localStorage.getItem('videosCadastrados')) || [];
-
-
-        // Função para extrair ID do YouTube e pegar a Thumbnail
-        function pegarThumbnailDoLink(link) {
-            let id = '';
-            if (link.includes('youtu.be/')) {
-                id = link.split('youtu.be/')[1].split('?')[0];
-            } else if (link.includes('youtube.com/watch')) {
-                id = new URL(link).searchParams.get('v');
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        preto: {
+                            900: '#000000', 800: '#050505', 700: '#0F0F0F', 600: '#1A1A1A', 500: '#242424',
+                        },
+                        roxo: {
+                            900: '#2D0C5E', 800: '#4B0082', 700: '#5A189A', 600: '#7B2CBF', 500: '#9D4EDD', 400: '#C77DFF',
+                        }
+                    },
+                    fontFamily: { inter: ['Inter', 'sans-serif'] },
+                }
             }
-            return id ? `https://img.youtube.com/vi/${id}/maxresdefault.jpg` : 'https://via.placeholder.com/480x360/141414/9D4EDD?text=Sem+Capa';
         }
-
-
-        // Adicionar novo vídeo
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-            
-            const link = document.getElementById('linkVid').value;
-            const novo = {
-                id: Date.now(),
-                titulo: document.getElementById('tituloVid').value,
-                categoria: document.getElementById('categoriaVid').value,
-                link: link,
-                descricao: document.getElementById('descricaoVid').value || "Sem descrição disponível.",
-                thumbnail: pegarThumbnailDoLink(link) // Salva a capa automaticamente
-            };
-            
-            bancoVideos.push(novo);
-            salvarDados();
-            renderizar("todos");
-            form.reset();
-        });
-
-
-        // Filtrar por categoria
-        botoesFiltro.forEach(btn => {
-            btn.addEventListener('click', () => {
-                botoesFiltro.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                renderizar(btn.dataset.filtro);
-            });
-        });
-
-
-        // Renderizar vídeos na tela COM A CAPA
-        function renderizar(filtro) {
-            grade.innerHTML = "";
-            const listaFiltrada = filtro === "todos" ? bancoVideos : bancoVideos.filter(v => v.categoria === filtro);
-
-            if (listaFiltrada.length === 0) {
-                grade.innerHTML = `<div class="vazio-msg">Nenhum vídeo encontrado nessa categoria.</div>`;
-                return;
-            }
-
-            listaFiltrada.forEach(vid => {
-                const card = document.createElement('div');
-                card.className = 'video-card-com-capa';
-                card.innerHTML = `
-                    <!-- Capa do Vídeo -->
-                    <div class="video-capa">
-                        <img src="${vid.thumbnail}" alt="Capa do vídeo" loading="lazy">
-                        <div class="tag-categoria cat-${vid.categoria}">${traduzirCategoria(vid.categoria)}</div>
-                    </div>
-
-                    <!-- Informações -->
-                    <div class="video-conteudo">
-                        <h4 class="video-titulo">${vid.titulo}</h4>
-                        <p class="video-descricao">${vid.descricao}</p>
-                        <a href="${vid.link}" target="_blank" class="btn btn-primary btn-block">Assistir no YouTube</a>
-                    </div>
-                `;
-                grade.appendChild(card);
-            });
-        }
-
-
-        function traduzirCategoria(cat) {
-            const nomes = {
-                tutoriais: "Tutoriais", jogos: "Jogos", vlogs: "Vlogs",
-                curiosidades: "Curiosidades", analises: "Análises", entretenimento: "Entretenimento"
-            };
-            return nomes[cat] || cat;
-        }
-
-        function salvarDados() {
-            localStorage.setItem('videosCadastrados', JSON.stringify(bancoVideos));
-        }
-
-        // Inicializar
-        renderizar("todos");
     </script>
-</body>
-</html>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow { text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+            .bg-gradient-roxo { background: linear-gradient(135deg, #000000 0%, #4B0082 100%); }
+            .bg-gradient-card { background: linear-gradient(145deg, #1A1A1A 0%, #0F0F0F 100%); }
+            .bordas-roxas { border: 1px solid rgba(157, 78, 221, 0.15); }
+            .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+            .scrollbar-hide::-webkit-scrollbar { display: none; }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="bg-preto-800 font-inter text-white min-h-screen relative overflow-x-hidden">
+
+    <!-- Elementos Decorativos -->
+    <div class="absolute w-[450px] h-[450px] opacity-[0.02] top-0 right-0" style="background: url('https://cdn-icons-png.flaticon.com/512/1296/1296888.png') no-repeat center/contain;"></div>
+    <div class="absolute w-[450px] h-[450px] opacity-[0.02] bottom-0 left-0" style="background: url('https://cdn-icons-png.flaticon.com/512/3162/3162338.png') no-repeat center/contain;"></div>
+
+    <!-- Barra Superior -->
+    <header class="sticky top-0 z-50 bg-gradient-roxo shadow-[0_4px_20px_rgba(0,0,0,0.4)] border-b border-roxo-700/20">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h2 class="text-[20px] font-bold tracking-wider text-shadow">PAINEL DE GERENCIAMENTO</h2>
+            <div class="flex gap-3">
+                <a href="menu.html" class="border border-roxo-400/40 text-roxo-300 hover:bg-roxo-700/20 px-4 py-2 rounded-lg text-sm font-medium transition-all">Menu Principal</a>
+                <button id="btnSair" class="bg-red-900/60 hover:bg-red-800/80 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all">Sair</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 relative z-10">
+
+        <!-- SEÇÃO: ADICIONAR VÍDEO -->
+        <section class="mb-12">
+            <div class="bg-preto-700/70 backdrop-blur-sm rounded-2xl bordas-roxas shadow-[0_8px_32px_rgba(0,0,0,0.3)] overflow-hidden">
+                <div class="bg-preto-600/50 border-b bordas-roxas px-8 py-5">
+                    <h3 class="text-[18px] font-semibold text-roxo-400">CADASTRAR NOVO VÍDEO</h3>
+                    <p class="text-gray-400 text-sm mt-1">Preencha os dados para adicionar ao banco de dados</p>
+                </div>
+
+                <form id="formVideo" class="p-8 grid md:grid-cols-2 gap-6">
+                    <div class="space-y-5">
+                        <div>
+                            <label class="block text-gray-300 text-sm font-medium mb-2">Título Completo</label>
+                            <input type="text" id="titulo" class="w-full bg-preto-600/60 bordas-roxas rounded-lg px-4 py-3 focus:border-roxo-500 focus:ring-1 focus:ring-roxo-500 outline-none transition-all" placeholder="Título do vídeo" required>
+                        </div>
+                        <div>
+                            <label class="block text-gray-300 text-sm font-medium mb-2">Categoria</label>
+                            <select id="categoria" class="w-full bg-preto-600/60 bordas-roxas rounded-lg px-4 py-3 focus:border-roxo-500 focus:ring-1 focus:ring-roxo-500 outline-none transition-all">
+                                <option value="tutoriais">Tutoriais e Dicas</option>
+                                <option value="jogos">Jogos e Gameplays</option>
+                                <option value="vlogs">Vlogs e Diários</option>
+                                <option value="curiosidades">Curiosidades</option>
+                                <option value="analises">Análises</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="space-y-5">
+                        <div>
+                            <label class="block text-gray-300 text-sm font-medium mb-2">Link do YouTube</label>
+                            <input type="url" id="link" class="w-full bg-preto-600/60 bordas-roxas rounded-lg px-4 py-3 focus:border-roxo-500 focus:ring-1 focus:ring-roxo-500 outline-none transition-all" placeholder="https://youtube.com/watch?v=..." required>
+                            <p class="text-gray-500 text-xs mt-1">Capa carregada automaticamente</p>
+                        </div>
+                        <div>
+                            <label class="block text-gray-300 text-sm font-medium mb-2">Descrição</label>
+                            <textarea id="descricao" rows="3" class="w-full bg-preto-600/60 bordas-roxas rounded-lg px-4 py-3 focus:border-roxo-500 focus:ring-1 focus:ring-roxo-500 outline-none transition-all resize-none" placeholder="Breve descrição..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-2 flex justify-center mt-2">
+                        <button type="submit" class="bg-gradient-roxo hover:shadow-lg hover:shadow-roxo-800/20 text-white font-semibold px-10 py-3.5 rounded-xl transition-all transform hover:-translate-y-0.5">
+                            SALVAR NO BANCO DE DADOS
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+
+        <!-- SEÇÃO: VISUALIZAR VÍDEOS -->
+        <section>
+            <div class="bg-preto-700/70 backdrop-blur-sm rounded-2xl bordas-roxas shadow-[0_8px_32px_rgba(0,0,0,0.3
