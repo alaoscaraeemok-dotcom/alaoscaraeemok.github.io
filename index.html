@@ -7,21 +7,22 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="login-wrapper">
-        <div class="decor-flower flower-1"></div>
-        <div class="decor-flower flower-2"></div>
-        <div class="decor-flower flower-3"></div>
+    <!-- Elementos decorativos sutis -->
+    <div class="bg-flower flower-top-left"></div>
+    <div class="bg-flower flower-bottom-right"></div>
+    <div class="bg-flower flower-center-left"></div>
 
+    <div class="login-container">
         <div class="login-card">
             <div class="login-header">
-                <h2>ACESSO AO DASHBOARD</h2>
-                <p>Entre para gerenciar seu conteúdo e vídeos</p>
+                <h1>ACESSO EXCLUSIVO</h1>
+                <p>Entre para gerenciar todo o conteúdo do seu canal</p>
             </div>
 
             <form id="loginForm" class="login-form">
                 <div class="input-group">
                     <label for="usuario">Usuário</label>
-                    <input type="text" id="usuario" placeholder="Digite seu usuário" required>
+                    <input type="text" id="usuario" placeholder="Digite seu nome de usuário" required>
                 </div>
 
                 <div class="input-group">
@@ -29,8 +30,8 @@
                     <input type="password" id="senha" placeholder="Digite sua senha" required>
                 </div>
 
-                <button type="submit" class="btn btn-primary">ENTRAR</button>
-                <p id="erro" class="erro-msg"></p>
+                <button type="submit" class="btn btn-primary btn-full">ENTRAR</button>
+                <p id="erroMsg" class="erro-mensagem"></p>
             </form>
         </div>
     </div>
@@ -42,14 +43,14 @@
         const form = document.getElementById("loginForm");
         form.addEventListener("submit", e => {
             e.preventDefault();
-            const user = document.getElementById("usuario").value;
-            const pass = document.getElementById("senha").value;
+            const user = document.getElementById("usuario").value.trim();
+            const pass = document.getElementById("senha").value.trim();
 
             if (user === usuarioCorreto && pass === senhaCorreta) {
                 localStorage.setItem("logado", "true");
                 window.location.href = "dashboard.html";
             } else {
-                document.getElementById("erro").textContent = "Usuário ou senha inválidos";
+                document.getElementById("erroMsg").textContent = "Usuário ou senha incorretos";
             }
         });
     </script>
