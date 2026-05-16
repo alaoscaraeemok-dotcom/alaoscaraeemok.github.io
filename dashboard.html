@@ -34,6 +34,10 @@
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- FIREBASE - DEIXE AQUI SUAS CONFIGURAÇÕES -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js"></script>
 </head>
 <body class="bg-preto-800 font-inter text-white min-h-screen relative overflow-x-hidden">
 
@@ -102,28 +106,34 @@
         </section>
 
 
-        <!-- SEÇÃO: VÍDEOS SALVOS -->
+        <!-- SEÇÃO: VÍDEOS SALVOS E GERENCIAMENTO -->
         <section>
             <div class="bg-preto-700/70 backdrop-blur-sm rounded-2xl bordas-roxas shadow-[0_8px_32px_rgba(0,0,0,0.3)] overflow-hidden">
                 <div class="bg-preto-600/50 border-b bordas-roxas px-8 py-5 flex flex-wrap justify-between items-center gap-4">
                     <div>
                         <h3 class="text-[18px] font-semibold text-roxo-400">VÍDEOS SALVOS NO BANCO</h3>
-                        <p class="text-gray-400 text-sm mt-1">Todos os vídeos cadastrados, clique para assistir</p>
+                        <p class="text-gray-400 text-sm mt-1">Selecione os vídeos para remover ou clique para assistir</p>
                     </div>
-                    <div class="flex gap-2">
-                        <button class="filtro-btn active bg-roxo-700/40 text-white px-3 py-1.5 rounded text-xs font-medium transition-all" data-filtro="todos">Todos</button>
-                        <button class="filtro-btn bg-preto-600/60 text-gray-300 hover:bg-roxo-700/30 px-3 py-1.5 rounded text-xs font-medium transition-all" data-filtro="tutoriais">Tutoriais</button>
-                        <button class="filtro-btn bg-preto-600/60 text-gray-300 hover:bg-roxo-700/30 px-3 py-1.5 rounded text-xs font-medium transition-all" data-filtro="jogos">Jogos</button>
-                        <button class="filtro-btn bg-preto-600/60 text-gray-300 hover:bg-roxo-700/30 px-3 py-1.5 rounded text-xs font-medium transition-all" data-filtro="vlogs">Vlogs</button>
-                        <button class="filtro-btn bg-preto-600/60 text-gray-300 hover:bg-roxo-700/30 px-3 py-1.5 rounded text-xs font-medium transition-all" data-filtro="curiosidades">Curiosidades</button>
-                        <button class="filtro-btn bg-preto-600/60 text-gray-300 hover:bg-roxo-700/30 px-3 py-1.5 rounded text-xs font-medium transition-all" data-filtro="analises">Análises</button>
+                    <div class="flex flex-wrap gap-3 items-center">
+                        <!-- Botão para excluir selecionados -->
+                        <button id="btnExcluirSelecionados" class="bg-red-700/60 hover:bg-red-800/80 text-white px-3 py-1.5 rounded text-xs font-medium transition-all hidden">
+                            <i class="fa fa-trash-o mr-1"></i> Remover Selecionados
+                        </button>
+                        <!-- Filtros -->
+                        <div class="flex gap-2">
+                            <button class="filtro-btn active bg-roxo-700/40 text-white px-3 py-1.5 rounded text-xs font-medium transition-all" data-filtro="todos">Todos</button>
+                            <button class="filtro-btn bg-preto-600/60 text-gray-300 hover:bg-roxo-700/30 px-3 py-1.5 rounded text-xs font-medium transition-all" data-filtro="tutoriais">Tutoriais</button>
+                            <button class="filtro-btn bg-preto-600/60 text-gray-300 hover:bg-roxo-700/30 px-3 py-1.5 rounded text-xs font-medium transition-all" data-filtro="jogos">Jogos</button>
+                            <button class="filtro-btn bg-preto-600/60 text-gray-300 hover:bg-roxo-700/30 px-3 py-1.5 rounded text-xs font-medium transition-all" data-filtro="vlogs">Vlogs</button>
+                            <button class="filtro-btn bg-preto-600/60 text-gray-300 hover:bg-roxo-700/30 px-3 py-1.5 rounded text-xs font-medium transition-all" data-filtro="curiosidades">Curiosidades</button>
+                            <button class="filtro-btn bg-preto-600/60 text-gray-300 hover:bg-roxo-700/30 px-3 py-1.5 rounded text-xs font-medium transition-all" data-filtro="analises">Análises</button>
+                        </div>
                     </div>
                 </div>
 
                 <div class="p-8">
                     <div id="listaVideos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <!-- Os vídeos aparecem aqui -->
-                        <div class="col-span-full text-center py-10 text-gray-500 italic">Nenhum vídeo cadastrado ainda.</div>
+                        <div class="col-span-full text-center py-10 text-gray-500 italic">Carregando vídeos do banco...</div>
                     </div>
                 </div>
             </div>
@@ -132,115 +142,75 @@
     </main>
 
     <script>
-        // Verifica se está logado
+        // Verifica login
         if (!localStorage.getItem("logado")) {
             window.location.href = "index.html";
         }
 
+        // ===== CONFIGURAÇÃO DO FIREBASE =====
+        const firebaseConfig = {
+            // COLOQUE AQUI SUAS CONFIGURAÇÕES DO FIREBASE QUE VOCÊ TINHA ANTES
+            apiKey: "AIzaSyBrJNVLqLqzrnRBYXrQwS-PGIzwOnScKlS",
+            authDomain: "banco-de-dados-fcb5c.firebaseapp.com",
+            databaseURL: "https://banco-de-dados-fcb5c-default-rtdb.firebaseio.com",
+            projectId: "banco-de-dados-fcb5c",
+            storageBucket: "banco-de-dados-fcb5c.firebasestorage.app",
+            messagingSenderId: "248314616829",
+            appId: "1:248314616829:web:48582df73a78f84c171794"
+        };
+
+        // Inicializa Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+        const videosRef = db.ref("videos");
+
+        // Elementos
         const form = document.getElementById('formVideo');
         const listaContainer = document.getElementById('listaVideos');
         const botoesFiltro = document.querySelectorAll('.filtro-btn');
-        let bancoVideos = JSON.parse(localStorage.getItem('videosCadastrados')) || [];
+        const btnExcluirSelecionados = document.getElementById('btnExcluirSelecionados');
+        let idsSelecionados = [];
+        let todosOsVideos = [];
 
 
-        // Função para pegar a Thumbnail
+        // 🔧 Função: Pegar capa do YouTube
         function pegarThumbnailDoLink(link) {
             let id = '';
             if (link.includes('youtu.be/')) {
                 id = link.split('youtu.be/')[1].split('?')[0];
             } else if (link.includes('youtube.com/watch')) {
-                id = new URL(link).searchParams.get('v');
+                try { id = new URL(link).searchParams.get('v'); } catch (e) { id = ''; }
             }
             return id ? `https://img.youtube.com/vi/${id}/mqdefault.jpg` : 'https://via.placeholder.com/320x180/141414/9D4EDD?text=Sem+Capa';
         }
 
-
-        // Adicionar novo vídeo (CORRIGIDO)
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-            
-            const novo = {
-                id: Date.now(),
-                titulo: document.getElementById('titulo').value,
-                categoria: document.getElementById('categoria').value, // <- CORRIGIDO AQUI
-                link: document.getElementById('link').value,
-                descricao: document.getElementById('descricao').value || "Sem descrição disponível.",
-                thumbnail: pegarThumbnailDoLink(document.getElementById('link').value)
-            };
-            
-            bancoVideos.push(novo);
-            salvarDados();
-            renderizarLista('todos');
-            form.reset();
-        });
-
-
-        // Filtrar por categoria (CORRIGIDO)
-        botoesFiltro.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Reseta estilo de todos
-                botoesFiltro.forEach(b => {
-                    b.classList.remove('active', 'bg-roxo-700/40', 'text-white');
-                    b.classList.add('bg-preto-600/60', 'text-gray-300');
-                });
-                // Aplica estilo no clicado
-                btn.classList.add('active', 'bg-roxo-700/40', 'text-white');
-                btn.classList.remove('bg-preto-600/60', 'text-gray-300');
-                
-                renderizarLista(btn.dataset.filtro);
-            });
-        });
-
-
-        // Renderizar lista (CORRIGIDO para exibir corretamente)
-        function renderizarLista(filtro) {
-            listaContainer.innerHTML = "";
-            const listaFiltrada = filtro === "todos" ? bancoVideos : bancoVideos.filter(v => v.categoria === filtro);
-
-            if (listaFiltrada.length === 0) {
-                listaContainer.innerHTML = `<div class="col-span-full text-center py-10 text-gray-500 italic">Nenhum vídeo encontrado nessa categoria.</div>`;
-                return;
-            }
-
-            listaFiltrada.forEach(vid => {
-                const card = document.createElement('div');
-                card.className = 'bg-preto-600/40 bordas-roxas rounded-lg overflow-hidden hover:border-roxo-400/40 hover:shadow-md hover:shadow-roxo-900/10 transition-all cursor-pointer';
-                card.onclick = () => window.open(vid.link, '_blank');
-
-                card.innerHTML = `
-                    <div class="w-full h-[140px] overflow-hidden">
-                        <img src="${vid.thumbnail}" alt="Capa do vídeo" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
-                    </div>
-                    <div class="p-4">
-                        <span class="inline-block px-2 py-0.5 bg-roxo-800/50 text-roxo-300 text-[10px] font-semibold uppercase rounded mb-2">${traduzirCategoria(vid.categoria)}</span>
-                        <h4 class="text-sm font-medium text-white line-clamp-2">${vid.titulo}</h4>
-                    </div>
-                `;
-                listaContainer.appendChild(card);
-            });
-        }
-
-
+        // 🔧 Função: Traduzir nome da categoria
         function traduzirCategoria(cat) {
             const nomes = {
                 tutoriais: "Tutoriais", jogos: "Jogos", vlogs: "Vlogs",
-                curiosidades: "Curiosidades", analises: "Análises", entretenimento: "Entretenimento"
+                curiosidades: "Curiosidades", analises: "Análises"
             };
             return nomes[cat] || cat;
         }
 
-        function salvarDados() {
-            localStorage.setItem('videosCadastrados', JSON.stringify(bancoVideos));
-        }
+        // ✅ Adicionar novo vídeo NO FIREBASE
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            const novoVideo = {
+                titulo: document.getElementById('titulo').value.trim(),
+                categoria: document.getElementById('categoria').value,
+                link: document.getElementById('link').value.trim(),
+                descricao: document.getElementById('descricao').value.trim() || "Sem descrição disponível.",
+                thumbnail: pegarThumbnailDoLink(document.getElementById('link').value)
+            };
 
-        // Logout
-        document.getElementById('btnSair').addEventListener('click', () => {
-            localStorage.removeItem('logado');
-            window.location.href = "index.html";
+            videosRef.push(novoVideo)
+            .then(() => {
+                form.reset();
+                alert('✅ Vídeo salvo no Firebase!');
+            })
+            .catch(err => alert('❌ Erro: ' + err));
         });
 
-        // Carrega os vídeos ao abrir a página
-        renderizarLista('todos');
-    </script>
-</body>
-</html>
+        // 🔘 Filtrar por categoria
+        botoesFiltro.forEach(
