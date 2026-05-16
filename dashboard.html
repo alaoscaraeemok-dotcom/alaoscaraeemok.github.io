@@ -246,4 +246,19 @@
             localStorage.setItem('videosCadastrados', JSON.stringify(bancoVideos));
         }
 
+        // Remover vídeo
+function removerVideo(id) {
+    const confirmar = confirm("Tem certeza que deseja remover este vídeo?");
+
+    if (!confirmar) return;
+
+    bancoVideos = bancoVideos.filter(v => v.id !== id);
+
+    salvarDados();
+
+    // Mantém filtro atual
+    const filtroAtivo = document.querySelector('.filtro-btn.active').dataset.filtro;
+
+    renderizarLista(filtroAtivo);
+}
         // Logout
